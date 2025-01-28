@@ -953,3 +953,29 @@
 2025-01-28 17:13:52,954 - Negotiated api version from '7.0' down to '6.1-preview'. This means the client is newer than the server.
 2025-01-28 17:13:53,047 - Negotiated api version from '7.0' down to '6.1-preview'. This means the client is newer than the server.
 2025-01-28 17:13:53,122 - Negotiated api version from '7.0' down to '6.1-preview'. This means the client is newer than the server.
+2025-01-28 18:57:47,481 - INFO - Логирование инициализировано.
+2025-01-28 18:57:47,650 - INFO - Запуск приложения...
+2025-01-28 18:57:47,962 - INFO - Negotiated api version from '7.1-preview.1' down to '6.1-preview'. This means the client is newer than the server.
+2025-01-28 18:57:48,047 - INFO - Negotiated api version from '7.0' down to '6.1-preview'. This means the client is newer than the server.
+2025-01-28 18:57:58,464 - INFO - Выбран проект: Moorinet
+2025-01-28 18:57:58,469 - INFO - Negotiated api version from '7.0' down to '6.1-preview'. This means the client is newer than the server.
+2025-01-28 18:58:06,213 - INFO - Выбран репозиторий: Moorinet.Core.Web
+2025-01-28 18:58:06,213 - INFO - Negotiated api version from '7.0' down to '6.1-preview'. This means the client is newer than the server.
+2025-01-28 18:58:06,237 - INFO - Negotiated api version from '7.0' down to '6.1-preview'. This means the client is newer than the server.
+2025-01-28 18:58:06,383 - INFO - Получено 100 коммитов из репозитория Moorinet.Core.Web.
+2025-01-28 18:58:06,383 - INFO - Найдено 100 коммитов в репозитории Moorinet.Core.Web.
+2025-01-28 18:58:06,383 - INFO - Анализ коммитов завершён: всего 100, топ-5 авторов: [('Игорь Викторович Доронов', 36), ('DoronovIV', 35), ('Вячеслав Николаевич Косинов', 15), ('Косинов Вячеслав', 14)]
+2025-01-28 18:58:06,403 - INFO - Работа завершена. Отчёт сохранён.
+2025-01-28 18:59:12,023 - INFO - Логирование инициализировано.
+2025-01-28 18:59:12,053 - INFO - Запуск приложения...
+2025-01-28 18:59:12,205 - INFO - Negotiated api version from '7.1-preview.1' down to '6.1-preview'. This means the client is newer than the server.
+2025-01-28 18:59:12,262 - INFO - Negotiated api version from '7.0' down to '6.1-preview'. This means the client is newer than the server.
+2025-01-28 18:59:20,959 - INFO - Выбран проект: Pilot
+2025-01-28 18:59:20,966 - INFO - Negotiated api version from '7.0' down to '6.1-preview'. This means the client is newer than the server.
+2025-01-28 18:59:24,766 - INFO - Выбран репозиторий: Pilot_server
+2025-01-28 18:59:24,766 - INFO - Negotiated api version from '7.0' down to '6.1-preview'. This means the client is newer than the server.
+2025-01-28 18:59:24,789 - INFO - Negotiated api version from '7.0' down to '6.1-preview'. This means the client is newer than the server.
+2025-01-28 18:59:24,887 - INFO - Получено 100 коммитов из репозитория Pilot_server.
+2025-01-28 18:59:24,887 - INFO - Найдено 100 коммитов в репозитории Pilot_server.
+2025-01-28 18:59:24,887 - INFO - Анализ коммитов завершён: всего 100, топ-5 авторов: [('Александр', 93), ('Александр Игоревич Альховцев', 5), ('Александр Валериевич Гордеев', 2)]
+2025-01-28 18:59:24,904 - INFO - Работа завершена. Отчёт сохранён.

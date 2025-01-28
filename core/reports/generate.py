@@ -1,4 +1,6 @@
+# core/reports/generate.py
 from docx import Document
+import os
 
 def generate_report(project_name, repository_name, analysis):
     """
@@ -15,6 +17,9 @@ def generate_report(project_name, repository_name, analysis):
         document.add_paragraph(f"{author}: {count} коммитов")
 
     # Сохранение документа
-    report_path = f"{project_name}_{repository_name}_report.docx"
+    reports_dir = os.path.join(os.path.dirname(__file__), '../../reports')
+    os.makedirs(reports_dir, exist_ok=True)
+
+    report_path = os.path.join(reports_dir, f"{project_name}_{repository_name}_report.docx")
     document.save(report_path)
     print(f"Отчёт сохранён: {report_path}")
