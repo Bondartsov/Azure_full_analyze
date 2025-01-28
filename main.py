@@ -1,100 +1,126 @@
-from core.azure_devops import get_projects, get_repositories, get_all_commits, connect_to_azure
-from core.analyze import analyze_commits
-from core.report import generate_report
-from core.logging import log
-from azure.devops.v7_0.git.models import GitQueryCommitsCriteria
+import os
+from core.azure.connection import connect_to_azure
+from core.azure.projects import get_projects
+from core.azure.repos import get_repositories
+from core.azure.repo_commits import get_all_commits, get_last_commit
+from core.analyze.commit_analysis import analyze_commits
+from core.reports.generate import generate_report
+from core.reports.summary import generate_summary  # Модуль для сводного отчёта
+from core.utils.cache import is_repo_changed  # Модуль для кэширования
+from core.utils.common import choose_from_list
+from core.logging.logger import log
+from core.utils.token_counter import count_tokens_in_repo
+from tqdm import tqdm
+
+
+def format_number(number):
+    """Форматирует числа с пробелами (1000000 -> 1 000 000)"""
+    return f"{number:,}".replace(",", " ")
+
+
+def analyze_repository(project_name, repository, progress_bar):
+    """Функция анализа одного репозитория"""
+    repository_name = repository.name
+    progress_bar.set_description(f"🔍 Анализ: {repository_name}")
+    log(f"📂 Начало анализа репозитория: {repository_name}")
+
+    # Проверка изменений в репозитории (кэширование)
+    latest_commit = get_last_commit(project_name, repository_name)
+    if not is_repo_changed(project_name, repository_name, latest_commit):
+        log(f"🔄 Репозиторий {repository_name} не изменился, пропускаем.")
+        progress_bar.update(1)
+        return None
+
+    # Подсчёт токенов
+    log(f"📊 Подсчёт токенов в {repository_name}...")
+    token_data, total_tokens = count_tokens_in_repo(project_name, repository_name)
+    log(f"✅ Подсчёт токенов завершён: {format_number(total_tokens)} токенов")
+
+    # Получение коммитов
+    log(f"🔄 Получение коммитов для {repository_name}...")
+    commits = get_all_commits(project_name, repository_name)
+
+    if commits is None:
+        log(f"⚠ Ошибка при получении коммитов для {repository_name}", level="ERROR")
+        progress_bar.update(1)
+        return None
+
+    log(f"📌 Найдено {format_number(len(commits))} коммитов")
+
+    # Анализ коммитов
+    analysis = analyze_commits(commits) if commits else {"total_commits": 0, "top_authors": []}
+    log(f"📊 Анализ завершён: {analysis}")
+
+    # Генерация отчёта
+    log("📄 Генерация отчёта...")
+    report_path = generate_report(project_name, repository_name, total_tokens, commits, analysis)
+
+    if report_path:
+        log(f"✅ Отчёт сохранён: {report_path}")
+        print(f"\n✅ Репозиторий {repository_name}: Коммитов: {format_number(len(commits))}, Токенов: {format_number(total_tokens)}")
+        print(f"📄 Отчёт сохранён: {report_path}")
+        progress_bar.update(1)
+        return {"repository": repository_name, "tokens": total_tokens, "report": report_path}
+    else:
+        log("❌ Ошибка при генерации отчёта!", level="ERROR")
+        print("\n❌ Ошибка при генерации отчёта!")
+        progress_bar.update(1)
+        return None
+
 
 def main():
-    log("Запуск приложения...")
+    log("🚀 Запуск приложения...")
 
-    # Получение списка проектов
+    # Получение и выбор проекта
     projects = get_projects()
-    print("Доступные проекты:", projects)
+    log(f"📌 Доступные проекты: {projects}")
     if not projects:
-        print("Нет доступных проектов.")
+        log("⚠ Нет доступных проектов.", level="WARNING")
         return
 
-    print("Доступные проекты:")
-    for i, project in enumerate(projects, start=1):
-        print(f"{i}. {project}")
-
-    # Выбор проекта
-    while True:
-        try:
-            project_choice = int(input("Выберите проект (введите номер): "))
-            if 1 <= project_choice <= len(projects):
-                project_name = projects[project_choice - 1]
-                break
-            else:
-                print("Неверный номер. Попробуйте снова.")
-        except ValueError:
-            print("Пожалуйста, введите число.")
-
-    log(f"Выбран проект: {project_name}")
-
-    # Проверка репозиториев для каждого проекта
-    for project in projects:
-        repositories = get_repositories(project)
-        print(f"Репозитории в проекте '{project}':", repositories)
-
-    # Получение репозиториев
-    repositories = get_repositories(project_name)
-    if not repositories:
-        print(f"Нет доступных репозиториев в проекте {project_name}.")
-        return
-
-    print(f"Репозитории в проекте '{project_name}':")
-    for i, repo in enumerate(repositories, start=1):
-        print(f"{i}. {repo}")
-
-    # Выбор репозитория
-    while True:
-        try:
-            repo_choice = int(input("Выберите репозиторий (введите номер): "))
-            if 1 <= repo_choice <= len(repositories):
-                repository_name = repositories[repo_choice - 1]
-                break
-            else:
-                print("Неверный номер. Попробуйте снова.")
-        except ValueError:
-            print("Пожалуйста, введите число.")
-
-    log(f"Выбран репозиторий: {repository_name}")
-
-    # Установка соединения с Azure DevOps
-    connection = connect_to_azure()
-    git_client = connection.clients.get_git_client()
+    project_name = choose_from_list(projects, "Выберите проект")
+    log(f"✅ Выбран проект: {project_name}")
 
     # Получение списка репозиториев
     repositories = get_repositories(project_name)
-    print("Репозитории:", repositories)
-
-    # Поиск репозитория по имени
-    repository = next((repo for repo in repositories if repo == repository_name), None)
-    if not repository:
-        print(f"Репозиторий '{repository_name}' не найден в проекте '{project_name}'.")
+    log(f"📌 Найдено {format_number(len(repositories))} репозиториев.")
+    if not repositories:
+        log(f"⚠ Нет репозиториев в проекте {project_name}.", level="WARNING")
         return
 
-    # Используем название репозитория как его ID
-    repository_id = repository_name
+    # Выбор между анализом всех или конкретного репозитория
+    options = ["📂 Анализировать все репозитории"] + [repo.name for repo in repositories]
+    selected_option = choose_from_list(options, "Выберите действие")
 
-    # Задание критериев поиска коммитов
-    search_criteria = GitQueryCommitsCriteria()
+    repository_results = []
+    if selected_option == "📂 Анализировать все репозитории":
+        log(f"📊 Начат анализ всех репозиториев проекта {project_name}...")
 
-    # Получение коммитов
-    commits = get_all_commits(git_client, repository_id, project_name, search_criteria)
-    if not commits:
-        print(f"Нет коммитов в репозитории {repository_name}.")
-        return
+        with tqdm(total=len(repositories), desc="⏳ Обработка репозиториев", unit="репо") as progress_bar:
+            for repository in repositories:
+                result = analyze_repository(project_name, repository, progress_bar)
+                if result:
+                    repository_results.append(result)
 
-    print(f"Найдено {len(commits)} коммитов в репозитории {repository_name}.")
+        # Генерация сводного отчёта
+        if repository_results:
+            summary_path = generate_summary(project_name, repository_results)
+            if summary_path:
+                log(f"📄 Сводный отчёт сохранён: {summary_path}")
+                print(f"\n📄 Сводный отчёт создан: {summary_path}")
+        else:
+            log(f"⚠ Не удалось создать сводный отчёт: нет обработанных репозиториев.", level="WARNING")
 
-    # Анализ коммитов
-    analysis = analyze_commits(commits)
-    print("Анализ коммитов:", analysis)
+        log(f"✅ Анализ всех репозиториев проекта {project_name} завершён!")
+    else:
+        repository = next((repo for repo in repositories if repo.name == selected_option), None)
+        if not repository:
+            log(f"❌ Ошибка: репозиторий {selected_option} не найден.", level="ERROR")
+            return
 
-    # Генерация отчёта
-    generate_report(project_name, repository_name, analysis)
+        with tqdm(total=1, desc=f"🔍 Анализ: {repository.name}", unit="репо") as progress_bar:
+            analyze_repository(project_name, repository, progress_bar)
+
 
 if __name__ == "__main__":
     main()
