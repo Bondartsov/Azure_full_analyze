@@ -28,3 +28,15 @@ def log(message, level=logging.INFO):
 
 # Инициализация логов при импортировании модуля
 setup_logging()
+
+import logging
+
+# Отключаем ненужные логи о версии API
+class CustomFilter(logging.Filter):
+    def filter(self, record):
+        return "Negotiated api version" not in record.getMessage()
+
+# Применяем фильтр
+logger = logging.getLogger()
+for handler in logger.handlers:
+    handler.addFilter(CustomFilter())

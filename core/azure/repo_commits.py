@@ -1,30 +1,45 @@
-from azure.devops.v7_0.git.models import GitQueryCommitsCriteria
+from core.azure.connection import connect_to_azure
 from core.logging.logger import log
+from azure.devops.v7_0.git.models import GitQueryCommitsCriteria  # Импортируем критерии поиска коммитов
 
-def get_all_commits(connection, project_name, repository_name):
+
+def get_all_commits(project_name, repository):
     """
-    Получает список коммитов из указанного репозитория.
+    Получает ВСЕ коммиты из репозитория, используя постраничную загрузку.
     """
     try:
+        log(f"Начало получения коммитов для проекта {project_name}, репозитория {repository.name}")
+        connection = connect_to_azure()
         git_client = connection.clients.get_git_client()
 
-        # Получаем репозиторий по имени
-        repositories = git_client.get_repositories(project_name)
-        repository_id = next((repo.id for repo in repositories if repo.name == repository_name), None)
+        # Получаем ID репозитория
+        repository_id = repository.id  # Теперь берем ID из объекта напрямую
 
-        if not repository_id:
-            log(f"Репозиторий {repository_name} не найден в проекте {project_name}.", level="ERROR")
-            return []
+        # Запрашиваем коммиты с постраничной загрузкой
+        all_commits = []
+        batch_size = 500
+        skip = 0
 
-        # Запрос на получение коммитов
-        search_criteria = GitQueryCommitsCriteria()
-        all_commits = git_client.get_commits(
-            repository_id=repository_id,
-            project=project_name,
-            search_criteria=search_criteria
-        )
+        search_criteria = GitQueryCommitsCriteria()  # Создаем объект критериев поиска
 
-        log(f"Получено {len(all_commits)} коммитов из репозитория {repository_name}.")
+        while True:
+            commits = list(git_client.get_commits(
+                repository_id=repository_id,
+                project=project_name,
+                search_criteria=search_criteria,  # Передаем критерии поиска
+                top=batch_size,
+                skip=skip
+            ))
+
+            if not commits:
+                break
+
+            all_commits.extend(commits)
+            skip += batch_size
+
+            log(f"Загружено {len(commits)} коммитов, всего {len(all_commits)}")
+
+        log(f"Всего получено {len(all_commits)} коммитов для {repository.name}")
         return all_commits
 
     except Exception as e:
