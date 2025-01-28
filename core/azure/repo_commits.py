@@ -13,7 +13,7 @@ def get_all_commits(project_name, repository):
         git_client = connection.clients.get_git_client()
 
         # Получаем ID репозитория
-        repository_id = repository.id  # Теперь берем ID из объекта напрямую
+        repository_id = repository.id
 
         # Запрашиваем коммиты с постраничной загрузкой
         all_commits = []
@@ -45,3 +45,34 @@ def get_all_commits(project_name, repository):
     except Exception as e:
         log(f"Ошибка при получении коммитов: {str(e)}", level="ERROR")
         return []
+
+
+def get_last_commit(project_name, repository_name):
+    """
+    Получает хэш последнего коммита для репозитория.
+    """
+    try:
+        log(f"Получение последнего коммита для проекта {project_name}, репозитория {repository_name}")
+        connection = connect_to_azure()
+        git_client = connection.clients.get_git_client()
+
+        # Запрос на получение последнего коммита
+        search_criteria = GitQueryCommitsCriteria()
+        commits = git_client.get_commits(
+            repository_id=repository_name,
+            project=project_name,
+            search_criteria=search_criteria,
+            top=1
+        )
+
+        if commits:
+            last_commit_id = commits[0].commit_id
+            log(f"Последний коммит для {repository_name}: {last_commit_id}")
+            return last_commit_id
+
+        log(f"⚠ Нет коммитов в репозитории {repository_name}", level="WARNING")
+        return None
+
+    except Exception as e:
+        log(f"Ошибка при получении последнего коммита: {e}", level="ERROR")
+        return None

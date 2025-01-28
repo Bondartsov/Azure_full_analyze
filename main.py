@@ -2,24 +2,37 @@ import os
 from core.azure.connection import connect_to_azure
 from core.azure.projects import get_projects
 from core.azure.repos import get_repositories
-from core.azure.repo_commits import get_all_commits
+from core.azure.repo_commits import get_all_commits, get_last_commit
 from core.analyze.commit_analysis import analyze_commits
 from core.reports.generate import generate_report
+from core.reports.summary import generate_summary  # Модуль для сводного отчёта
+from core.utils.cache import is_repo_changed  # Модуль для кэширования
 from core.utils.common import choose_from_list
 from core.logging.logger import log
 from core.utils.token_counter import count_tokens_in_repo
+from tqdm import tqdm
+
 
 def format_number(number):
     """Форматирует числа с пробелами (1000000 -> 1 000 000)"""
     return f"{number:,}".replace(",", " ")
 
-def analyze_repository(project_name, repository):
+
+def analyze_repository(project_name, repository, progress_bar):
     """Функция анализа одного репозитория"""
     repository_name = repository.name
-    log(f"Начало анализа репозитория: {repository_name}")
+    progress_bar.set_description(f"🔍 Анализ: {repository_name}")
+    log(f"📂 Начало анализа репозитория: {repository_name}")
+
+    # Проверка изменений в репозитории (кэширование)
+    latest_commit = get_last_commit(project_name, repository_name)
+    if not is_repo_changed(project_name, repository_name, latest_commit):
+        log(f"🔄 Репозиторий {repository_name} не изменился, пропускаем.")
+        progress_bar.update(1)
+        return None
 
     # Подсчёт токенов
-    log(f"📊 Начало подсчёта токенов в {repository_name}...")
+    log(f"📊 Подсчёт токенов в {repository_name}...")
     token_data, total_tokens = count_tokens_in_repo(project_name, repository_name)
     log(f"✅ Подсчёт токенов завершён: {format_number(total_tokens)} токенов")
 
@@ -29,7 +42,8 @@ def analyze_repository(project_name, repository):
 
     if commits is None:
         log(f"⚠ Ошибка при получении коммитов для {repository_name}", level="ERROR")
-        return
+        progress_bar.update(1)
+        return None
 
     log(f"📌 Найдено {format_number(len(commits))} коммитов")
 
@@ -45,9 +59,14 @@ def analyze_repository(project_name, repository):
         log(f"✅ Отчёт сохранён: {report_path}")
         print(f"\n✅ Репозиторий {repository_name}: Коммитов: {format_number(len(commits))}, Токенов: {format_number(total_tokens)}")
         print(f"📄 Отчёт сохранён: {report_path}")
+        progress_bar.update(1)
+        return {"repository": repository_name, "tokens": total_tokens, "report": report_path}
     else:
         log("❌ Ошибка при генерации отчёта!", level="ERROR")
         print("\n❌ Ошибка при генерации отчёта!")
+        progress_bar.update(1)
+        return None
+
 
 def main():
     log("🚀 Запуск приложения...")
@@ -73,14 +92,35 @@ def main():
     options = ["📂 Анализировать все репозитории"] + [repo.name for repo in repositories]
     selected_option = choose_from_list(options, "Выберите действие")
 
+    repository_results = []
     if selected_option == "📂 Анализировать все репозитории":
         log(f"📊 Начат анализ всех репозиториев проекта {project_name}...")
-        for repository in repositories:
-            analyze_repository(project_name, repository)
+
+        with tqdm(total=len(repositories), desc="⏳ Обработка репозиториев", unit="репо") as progress_bar:
+            for repository in repositories:
+                result = analyze_repository(project_name, repository, progress_bar)
+                if result:
+                    repository_results.append(result)
+
+        # Генерация сводного отчёта
+        if repository_results:
+            summary_path = generate_summary(project_name, repository_results)
+            if summary_path:
+                log(f"📄 Сводный отчёт сохранён: {summary_path}")
+                print(f"\n📄 Сводный отчёт создан: {summary_path}")
+        else:
+            log(f"⚠ Не удалось создать сводный отчёт: нет обработанных репозиториев.", level="WARNING")
+
         log(f"✅ Анализ всех репозиториев проекта {project_name} завершён!")
     else:
-        repository = next(repo for repo in repositories if repo.name == selected_option)
-        analyze_repository(project_name, repository)
+        repository = next((repo for repo in repositories if repo.name == selected_option), None)
+        if not repository:
+            log(f"❌ Ошибка: репозиторий {selected_option} не найден.", level="ERROR")
+            return
+
+        with tqdm(total=1, desc=f"🔍 Анализ: {repository.name}", unit="репо") as progress_bar:
+            analyze_repository(project_name, repository, progress_bar)
+
 
 if __name__ == "__main__":
     main()
