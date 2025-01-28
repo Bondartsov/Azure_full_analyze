@@ -1,16 +1,77 @@
 {
-    "Test CI/Test CI": "1cd806b6c32f2a64607b2a117ff38f7ff0a5b131",
-    "VTB Smart Business/WarehouseBalance": "ae95d670d5841899aec88c17b8e38ec173e9c8c5",
-    "VTB Smart Business/Backend": "4451cecd834c774a3e3284df62059ce025455a65",
-    "VTB Smart Business/Microservices": "10e244a6940c5f66f8490317e7ab1da5565d2b28",
-    "VTB Smart Business/Frontend": "b1ef599ef844e81244093e5664884e234ebd2660",
-    "VTB Smart Business/ML": "c3ff82b0ef787c8d501a6c2ab33defdccc261cc4",
-    "\u041d\u041c\u0422\u041f \u041f\u043e\u0440\u0442\u0430\u043b/\u041d\u041c\u0422\u041f \u041f\u043e\u0440\u0442\u0430\u043b": "699f0010afc61c63f854bc10b4251f55968d59db",
-    "ST.CPM/ST.CPM.Infrastructure": "cf5ba3094b015ef918374bc37d6aa24ca640271f",
-    "ST.CPM/ST.CPM": "becd5d33d1a240e358b673d84ba48065a3a0fad8",
-    "ST.CPM/wiki.description": "5538496c0b175ba0c8dc642c493ff1a10343204e",
-    "ST.CPM/TestApp": "54625168ec893ee12333fd6161979e000edad333",
-    "ST.CPM/ST.CPM.Back": "92adfc5b70a066f1cd719efe23114d546019ea24",
-    "ST.CPM/ST.CPM.Back.Cube": "dbf14d1c166a065a756c0243bbcbb81fd0811004",
-    "ST.CPM/ST.CPM.Front": "9079b2302290fd380c58b6ee2b9adcae8bb1c882"
+    "Test CI/Test CI": {
+        "last_commit": "1cd806b6c32f2a64607b2a117ff38f7ff0a5b131",
+        "tokens": 1531144,
+        "commits": 0
+    },
+    "VTB Smart Business/WarehouseBalance": {
+        "last_commit": "ae95d670d5841899aec88c17b8e38ec173e9c8c5",
+        "tokens": 0,
+        "commits": 0
+    },
+    "VTB Smart Business/Backend": {
+        "last_commit": "4451cecd834c774a3e3284df62059ce025455a65",
+        "tokens": 0,
+        "commits": 0
+    },
+    "VTB Smart Business/Microservices": {
+        "last_commit": "10e244a6940c5f66f8490317e7ab1da5565d2b28",
+        "tokens": 0,
+        "commits": 0
+    },
+    "VTB Smart Business/Frontend": {
+        "last_commit": "b1ef599ef844e81244093e5664884e234ebd2660",
+        "tokens": 0,
+        "commits": 0
+    },
+    "VTB Smart Business/ML": {
+        "last_commit": "c3ff82b0ef787c8d501a6c2ab33defdccc261cc4",
+        "tokens": 0,
+        "commits": 0
+    },
+    "НМТП Портал/НМТП Портал": {
+        "last_commit": "699f0010afc61c63f854bc10b4251f55968d59db",
+        "tokens": 0,
+        "commits": 0
+    },
+    "ST.CPM/ST.CPM.Infrastructure": {
+        "last_commit": "cf5ba3094b015ef918374bc37d6aa24ca640271f",
+        "tokens": 10468,
+        "commits": 0
+    },
+    "ST.CPM/ST.CPM": {
+        "last_commit": "becd5d33d1a240e358b673d84ba48065a3a0fad8",
+        "tokens": 16921,
+        "commits": 0
+    },
+    "ST.CPM/wiki.description": {
+        "last_commit": "5538496c0b175ba0c8dc642c493ff1a10343204e",
+        "tokens": 13175620,
+        "commits": 0
+    },
+    "ST.CPM/TestApp": {
+        "last_commit": "54625168ec893ee12333fd6161979e000edad333",
+        "tokens": 391763,
+        "commits": 0
+    },
+    "ST.CPM/ST.CPM.Back": {
+        "last_commit": "92adfc5b70a066f1cd719efe23114d546019ea24",
+        "tokens": 4298814,
+        "commits": 0
+    },
+    "ST.CPM/ST.CPM.Back.Cube": {
+        "last_commit": "dbf14d1c166a065a756c0243bbcbb81fd0811004",
+        "tokens": 7090,
+        "commits": 0
+    },
+    "ST.CPM/ST.CPM.Front": {
+        "last_commit": "9079b2302290fd380c58b6ee2b9adcae8bb1c882",
+        "tokens": 3968609,
+        "commits": 0
+    },
+    "Pilot/Pilot_map_engine": {
+        "last_commit": "fef142d4482d749d62abdd740eb4ca14aea00972",
+        "tokens": 0,
+        "commits": 0
+    }
 }

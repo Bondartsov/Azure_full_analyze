@@ -5,8 +5,8 @@ from core.azure.repos import get_repositories
 from core.azure.repo_commits import get_all_commits, get_last_commit
 from core.analyze.commit_analysis import analyze_commits
 from core.reports.generate import generate_report
-from core.reports.summary import generate_summary  # Модуль для сводного отчёта
-from core.utils.cache import is_repo_changed  # Модуль для кэширования
+from core.reports.summary import generate_summary
+from core.utils.cache import is_repo_changed, load_repo_data_from_cache, save_repo_data_to_cache
 from core.utils.common import choose_from_list
 from core.logging.logger import log
 from core.utils.token_counter import count_tokens_in_repo
@@ -24,12 +24,27 @@ def analyze_repository(project_name, repository, progress_bar):
     progress_bar.set_description(f"🔍 Анализ: {repository_name}")
     log(f"📂 Начало анализа репозитория: {repository_name}")
 
-    # Проверка изменений в репозитории (кэширование)
+    # Получаем последний коммит
     latest_commit = get_last_commit(project_name, repository_name)
-    if not is_repo_changed(project_name, repository_name, latest_commit):
-        log(f"🔄 Репозиторий {repository_name} не изменился, пропускаем.")
-        progress_bar.update(1)
-        return None
+
+    # Проверяем изменения в репозитории
+    repo_changed = is_repo_changed(project_name, repository_name, latest_commit)
+
+    if not repo_changed:
+        cached_data = load_repo_data_from_cache(project_name, repository_name)
+        if cached_data:
+            total_tokens, commit_count = cached_data
+            if total_tokens > 0:  # 🔹 Проверяем, есть ли нормальные данные
+                log(f"✅ Используем закэшированные данные для {repository_name}: {format_number(total_tokens)} токенов, {format_number(commit_count)} коммитов")
+                
+                # Генерация отчёта из кэша
+                report_path = generate_report(project_name, repository_name, total_tokens, [], {"total_commits": commit_count, "top_authors": []})
+                log(f"📄 Отчёт из кэша сохранён: {report_path}")
+
+                progress_bar.update(1)
+                return {"repository": repository_name, "tokens": total_tokens, "commits": commit_count, "cached": True}
+            else:
+                log(f"⚠ Кэш для {repository_name} пустой или некорректный, пересчитываем.")
 
     # Подсчёт токенов
     log(f"📊 Подсчёт токенов в {repository_name}...")
@@ -57,13 +72,11 @@ def analyze_repository(project_name, repository, progress_bar):
 
     if report_path:
         log(f"✅ Отчёт сохранён: {report_path}")
-        print(f"\n✅ Репозиторий {repository_name}: Коммитов: {format_number(len(commits))}, Токенов: {format_number(total_tokens)}")
-        print(f"📄 Отчёт сохранён: {report_path}")
+        save_repo_data_to_cache(project_name, repository_name, total_tokens, len(commits))  # 🔹 Сохранение в кэш
         progress_bar.update(1)
-        return {"repository": repository_name, "tokens": total_tokens, "report": report_path}
+        return {"repository": repository_name, "tokens": total_tokens, "commits": len(commits), "cached": False}
     else:
         log("❌ Ошибка при генерации отчёта!", level="ERROR")
-        print("\n❌ Ошибка при генерации отчёта!")
         progress_bar.update(1)
         return None
 
