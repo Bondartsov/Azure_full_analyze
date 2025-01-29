@@ -65,8 +65,8 @@
         "commits": 0
     },
     "ST.CPM/ST.CPM.Front": {
-        "last_commit": "9079b2302290fd380c58b6ee2b9adcae8bb1c882",
-        "tokens": 3968609,
+        "last_commit": "a3e60b4669880ef682d2bb489df603fcfd260d0b",
+        "tokens": 3968636,
         "commits": 0
     },
     "Pilot/Pilot_map_engine": {
@@ -147,6 +147,11 @@
     "SmartTwin.ВМТП/ST.TOS.Integration": {
         "last_commit": "d720722e5b89a4d9d629cb39aab3b7d35d589df0",
         "tokens": 1274826,
+        "commits": 0
+    },
+    "Pilot/Pilot_modems": {
+        "last_commit": "1ce7fbad33bf187b4afadb139df04f10f9d096a9",
+        "tokens": 45651,
         "commits": 0
     }
 }
