@@ -110,7 +110,7 @@
         "commits": 0
     },
     "SmartTwin.ВМТП/SmartTwin.VCSP.Backend": {
-        "last_commit": "2531feac6b0e91ba92d96b7bc3935c81a5f4bdd1",
+        "last_commit": "a9b6aef4f4071805c8726c60d6743a0464103219",
         "tokens": 59921777,
         "commits": 0
     },
@@ -232,6 +232,31 @@
     "ST.FESCO/ST.FESCO-WebStand": {
         "last_commit": "521c95f6decee061a731278e3f5fac9dd1f80e2a",
         "tokens": 657206,
+        "commits": 0
+    },
+    "ST.FESCO/ST.FESCO-wiki": {
+        "last_commit": "71efbaeeb708aca224fe36c5bfee11faba28bd48",
+        "tokens": 5819,
+        "commits": 0
+    },
+    "ST.FESCO/ST.FESCO-backend": {
+        "last_commit": "27e2092b8f7663ea78b6ecd749d412e5d7df7bd4",
+        "tokens": 2626428,
+        "commits": 0
+    },
+    "ST.FESCO/ST.FESCO-Monitoring": {
+        "last_commit": "488496a01421e4bf91683c630f52313585a4d155",
+        "tokens": 9537,
+        "commits": 0
+    },
+    "ST.FESCO/ST.FESCO-WebStand.Lite": {
+        "last_commit": "92189608909b595f58fe773da630656a181f9944",
+        "tokens": 407703,
+        "commits": 0
+    },
+    "ST.FESCO/ST.FESCO-frontend": {
+        "last_commit": null,
+        "tokens": 0,
         "commits": 0
     }
 }
