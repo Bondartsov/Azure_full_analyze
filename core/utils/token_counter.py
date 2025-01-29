@@ -21,35 +21,37 @@ def count_tokens_in_repo(project_name, repository_name):
     token_data = {}
     excluded_files = 0
 
-    log(f"Начало подсчёта токенов в репозитории {repository_name}...")
+    log(f"📊 Начало подсчёта токенов в репозитории {repository_name}...")
     
     # Получение списка файлов в репозитории
     files = get_repo_files(project_name, repository_name)
     if not files:
-        log(f"Не удалось получить файлы для {repository_name}.", level="WARNING")
-        return 0
+        log(f"⚠ Не удалось получить файлы для {repository_name}, возвращаем 0 токенов.", level="WARNING")
+        print(f"📌 DEBUG: get_repo_files() вернул None или пустой список для {repository_name}")
+        return {}, 0  # ✅ Теперь возвращаем два значения!
 
     for file_path in tqdm(files, desc="Обработка файлов"):
         # Проверяем расширение файла
         if any(file_path.lower().endswith(ext) for ext in EXCLUDE_EXTENSIONS):
-            log(f"Файл {file_path} исключён (неподдерживаемый формат)")
+            log(f"📌 Файл {file_path} исключён (неподдерживаемый формат)")
             excluded_files += 1
             continue
 
         # Загружаем содержимое файла
         content = get_file_content(project_name, repository_name, file_path)
         if not content.strip():
-            log(f"Файл {file_path} пуст или не удалось прочитать")
+            log(f"⚠ Файл {file_path} пуст или не удалось прочитать")
             continue
 
         # Подсчёт токенов
         tokens = count_tokens_in_text(content)
         token_data[file_path] = tokens
         total_tokens += tokens
-        log(f"Файл {file_path} → {tokens} токенов")
+        log(f"📄 Файл {file_path} → {tokens} токенов")
 
-    log(f"Подсчёт завершён: всего {total_tokens} токенов, исключено {excluded_files} файлов")
-    return token_data, total_tokens
+    log(f"✅ Подсчёт завершён: всего {total_tokens} токенов, исключено {excluded_files} файлов")
+    tqdm.write(f"📌 DEBUG: Возвращаемые данные: token_data={len(token_data)} файлов, total_tokens={total_tokens}")
+    return token_data, total_tokens  # ✅ Гарантированно два значения
 
 def count_tokens_in_text(text, model_encoding="cl100k_base"):
     """Подсчитывает количество токенов в тексте."""

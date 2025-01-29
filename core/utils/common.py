@@ -55,7 +55,7 @@ def select_repositories(project_name):
         return [], None  # Возвращаем пустой список
 
     options = ["📂 Анализировать все репозитории"] + [repo.name for repo in repositories]
-    selected_option = choose_from_list(options, "Выберите действие")
+    selected_option = choose_from_list(options, f"Выберите действие в проекте {project_name}")  # ✅ Добавлено имя проекта
 
     if selected_option == "📂 Анализировать все репозитории":
         return repositories, None  # Все репозитории

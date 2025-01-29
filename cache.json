@@ -153,5 +153,85 @@
         "last_commit": "1ce7fbad33bf187b4afadb139df04f10f9d096a9",
         "tokens": 45651,
         "commits": 0
+    },
+    "Moorinet/OLD_Led_PHP": {
+        "last_commit": "08e4b78f73e0606cd93230cf0b1ede1c3bdb7f5f",
+        "tokens": 7158,
+        "commits": 0
+    },
+    "Moorinet/Moorinet.Distancemeter.Utils": {
+        "last_commit": "5677e0b4a5d1bed7987424266f46c638be2ff695",
+        "tokens": 30892,
+        "commits": 0
+    },
+    "Moorinet/Moorinet.Weather.SensorDataServices": {
+        "last_commit": "fb183f7dc56cb852621d3464d40de0758b13fae6",
+        "tokens": 1607377,
+        "commits": 0
+    },
+    "Moorinet/Moorinet.Installation": {
+        "last_commit": "7ad870580a37385ec10605548e26165036d23b54",
+        "tokens": 5032,
+        "commits": 0
+    },
+    "Moorinet/OLD_Moorinet.OPC.Calculation": {
+        "last_commit": "e5bae00527926c4402544afc3526ceaf5216ec87",
+        "tokens": 20859,
+        "commits": 0
+    },
+    "Moorinet/Moorinet.Core.Web": {
+        "last_commit": "180f7fafe4e4d3ed2cdfde251e8e8fa8550eb0d1",
+        "tokens": 1613768,
+        "commits": 0
+    },
+    "Moorinet/Moorinet.Device.Monitoring": {
+        "last_commit": "c51115c1b95fe2f560198675a3c074de5f34bcad",
+        "tokens": 1222089,
+        "commits": 0
+    },
+    "Moorinet/Moorinet.Core.Application": {
+        "last_commit": "4c8e534af836bc6e30fc092ae4cf5f14f43e88d0",
+        "tokens": 151119041,
+        "commits": 0
+    },
+    "Moorinet/Moorinet.OPC.Record": {
+        "last_commit": "dc8164b851ca493aba009be61bbc15cab9e267bc",
+        "tokens": 43364031,
+        "commits": 0
+    },
+    "Moorinet/Moorinet.SSIS": {
+        "last_commit": "34ff2d919be6cc3101df0af80cc31dcc69e6680d",
+        "tokens": 258659,
+        "commits": 0
+    },
+    "Moorinet/LED OPC Server": {
+        "last_commit": "ddded5c7d8adf1a94cc9525e20140a6dede6659a",
+        "tokens": 8332,
+        "commits": 0
+    },
+    "Moorinet/Moorinet.Infrastructure.PostmanTests": {
+        "last_commit": "4a9f48571453317620f19b7b552be88a6170763d",
+        "tokens": 727555,
+        "commits": 0
+    },
+    "Moorinet/Moorinet.Video.Analytics": {
+        "last_commit": "b6518850f32831e00c994e1c093b9d8400d0d63e",
+        "tokens": 185379,
+        "commits": 0
+    },
+    "Вспомогательные инструменты/IntellectApps": {
+        "last_commit": "4fe21f9e3ca298374b996251e664c50db04c7ba3",
+        "tokens": 54519871,
+        "commits": 0
+    },
+    "Data Science/VTB.SmartBusiness": {
+        "last_commit": "26444998acde0f8f516af9a77af60370e8408cf7",
+        "tokens": 372,
+        "commits": 0
+    },
+    "ST.FESCO/ST.FESCO-WebStand": {
+        "last_commit": "521c95f6decee061a731278e3f5fac9dd1f80e2a",
+        "tokens": 657206,
+        "commits": 0
     }
 }

@@ -10,7 +10,7 @@ def analyze_all_repositories(project_name, repositories):
     log(f"📊 Начат анализ всех репозиториев проекта {project_name}...")
 
     repository_results = []
-    with tqdm(total=len(repositories), desc="⏳ Обработка репозиториев", unit="репо") as progress_bar:
+    with tqdm(total=len(repositories), desc="⏳ Общий анализ проекта", unit="репо") as progress_bar:
         for repository in repositories:
             result = analyze_repository(project_name, repository, progress_bar)
             if result:
