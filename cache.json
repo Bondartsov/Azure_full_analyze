@@ -73,5 +73,80 @@
         "last_commit": "fef142d4482d749d62abdd740eb4ca14aea00972",
         "tokens": 0,
         "commits": 0
+    },
+    "Moorinet/Moorinet.Infrastructure": {
+        "last_commit": "287e0226487714131f6f47c1b10256d0cf97e274",
+        "tokens": 60492,
+        "commits": 0
+    },
+    "Moorinet/Moorinet.Video.Camera": {
+        "last_commit": "d34aa6ce4eb35bb2f8d0deb185aa3f8a25e2b167",
+        "tokens": 9868,
+        "commits": 0
+    },
+    "Moorinet/Moorinet": {
+        "last_commit": null,
+        "tokens": 0,
+        "commits": 0
+    },
+    "SmartTwin.ВМТП/VSCP.BerthPlanning.Web": {
+        "last_commit": "02f4bb613e6ed44f27f643db552b0fd83b23cf0b",
+        "tokens": 484381,
+        "commits": 0
+    },
+    "SmartTwin.ВМТП/VSCP.Mobile.GeoApp": {
+        "last_commit": "44990e606665c9de84023a080ada35afa5e455ca",
+        "tokens": 372,
+        "commits": 0
+    },
+    "SmartTwin.ВМТП/Sim.EventDispatcher": {
+        "last_commit": "ab29429d60e088b74223a973c3cb971d502febf6",
+        "tokens": 15902,
+        "commits": 0
+    },
+    "SmartTwin.ВМТП/SmartTwin.VCSP.Monitoring": {
+        "last_commit": "a2c8378c3f369910a8e11bca91ccb6710f105e9e",
+        "tokens": 6961,
+        "commits": 0
+    },
+    "SmartTwin.ВМТП/SmartTwin.VCSP.Backend": {
+        "last_commit": "2531feac6b0e91ba92d96b7bc3935c81a5f4bdd1",
+        "tokens": 59921777,
+        "commits": 0
+    },
+    "SmartTwin.ВМТП/GeoModuleApp": {
+        "last_commit": "2d23472ad9744bbb59f8e59fef87adc43ad83687",
+        "tokens": 83251,
+        "commits": 0
+    },
+    "SmartTwin.ВМТП/Sim.StSimulation": {
+        "last_commit": "de47f014dd32d3c1f85ba7bf844a2eedeecd5df4",
+        "tokens": 34847488,
+        "commits": 0
+    },
+    "SmartTwin.ВМТП/SmartTwin.ВМТП": {
+        "last_commit": "dcaeecc18d98cf90b7d1ca1f3ac06e289c8daa43",
+        "tokens": 959001088,
+        "commits": 0
+    },
+    "SmartTwin.ВМТП/SmartTwin.VCSP": {
+        "last_commit": "2f84d416945a014325d8ec596503d295f3ebdc2c",
+        "tokens": 334075644,
+        "commits": 0
+    },
+    "SmartTwin.ВМТП/SmartTwin-VCSP-ML": {
+        "last_commit": "ccad318b279d836102888b0068cd03c25ccfb5fc",
+        "tokens": 246335424,
+        "commits": 0
+    },
+    "SmartTwin.ВМТП/VSCP.Infrastructure": {
+        "last_commit": "2d72831bb08d17e93cf62a30d7711297190415f7",
+        "tokens": 6546,
+        "commits": 0
+    },
+    "SmartTwin.ВМТП/ST.TOS.Integration": {
+        "last_commit": "d720722e5b89a4d9d629cb39aab3b7d35d589df0",
+        "tokens": 1274826,
+        "commits": 0
     }
 }
