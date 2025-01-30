@@ -1,0 +1,107 @@
+{
+    "last_commit": 0,
+    "total_tokens": 7090,
+    "commit_count": 0,
+    "files": [
+        {
+            "path": "/.gitattributes",
+            "tokens": 485
+        },
+        {
+            "path": "/.gitignore",
+            "tokens": 1841
+        },
+        {
+            "path": "/Cube.sln",
+            "tokens": 859
+        },
+        {
+            "path": "/src/Cube.Domain/BaseEntity.cs",
+            "tokens": 65
+        },
+        {
+            "path": "/src/Cube.Domain/Cube.Domain.csproj",
+            "tokens": 46
+        },
+        {
+            "path": "/src/Cube.Domain/Cube.cs",
+            "tokens": 191
+        },
+        {
+            "path": "/src/Cube.Domain/CubeFactory.cs",
+            "tokens": 39
+        },
+        {
+            "path": "/src/Cube.Domain/Dimension/AttributesFilter.cs",
+            "tokens": 129
+        },
+        {
+            "path": "/src/Cube.Domain/Dimension/Dimension.cs",
+            "tokens": 144
+        },
+        {
+            "path": "/src/Cube.Domain/Dimension/DimensionAttribute.cs",
+            "tokens": 84
+        },
+        {
+            "path": "/src/Cube.Domain/Dimension/DimensionFilters.cs",
+            "tokens": 196
+        },
+        {
+            "path": "/src/Cube.Domain/Dimension/DimensionItem.cs",
+            "tokens": 130
+        },
+        {
+            "path": "/src/Cube.Domain/Dimension/HierarchicalFilter.cs",
+            "tokens": 131
+        },
+        {
+            "path": "/src/Cube.Domain/Extensions/CollectionDimensionItemExtension.cs",
+            "tokens": 71
+        },
+        {
+            "path": "/src/Cube.Domain/Measure/IAggregateFunction.cs",
+            "tokens": 46
+        },
+        {
+            "path": "/src/Cube.Domain/Measure/ICalculationAlgorithm.cs",
+            "tokens": 19
+        },
+        {
+            "path": "/src/Cube.Domain/Measure/IDistributionAlgorithm.cs",
+            "tokens": 39
+        },
+        {
+            "path": "/src/Cube.Domain/Measure/Measure.cs",
+            "tokens": 162
+        },
+        {
+            "path": "/src/Cube.Domain/Measure/SumAggregate.cs",
+            "tokens": 41
+        },
+        {
+            "path": "/src/Cube.Domain/QueryBuilder.cs",
+            "tokens": 485
+        },
+        {
+            "path": "/src/Cube.Domain/Slice.cs",
+            "tokens": 638
+        },
+        {
+            "path": "/test/Test.Domain/CubeTest.cs",
+            "tokens": 793
+        },
+        {
+            "path": "/test/Test.Domain/QueryBuilderTest.cs",
+            "tokens": 293
+        },
+        {
+            "path": "/test/Test.Domain/Test.Domain.csproj",
+            "tokens": 163
+        }
+    ],
+    "analysis": {
+        "total_commits": 0,
+        "top_authors": []
+    }
+}

@@ -1,39 +1,58 @@
+# core/reports/summary.py
+
 import os
+from datetime import datetime
+from core.reports.report_formatter import format_project_summary
 from core.logging.logger import log
 
-def format_number(number):
-    """Форматирует числа с пробелами (1000000 -> 1 000 000)"""
-    return f"{number:,}".replace(",", " ")
+REPORTS_DIR = "reports"
 
-def generate_summary(project_name, repository_results):
+def generate_summary(project_name, repositories_reports):
     """
-    Генерирует сводный отчёт по всем проанализированным репозиториям.
+    Генерирует сводный отчёт по проекту.
+    :param project_name: Название проекта.
+    :param repositories_reports: Список отчётов по репозиториям.
+    :return: Путь к сохранённому файлу.
     """
-    if not repository_results:
-        log("⚠ Не найдено данных для создания сводного отчёта.", level="WARNING")
+    log(f"📄 Генерация сводного отчёта для проекта {project_name}...")
+
+    if not repositories_reports or not isinstance(repositories_reports, list):
+        log(f"⚠ Ошибка! Нет данных для сводного отчёта {project_name}.", level="ERROR")
         return None
 
-    summary_filename = f"summary_{project_name}_{get_timestamp()}.txt"
-    summary_path = os.path.join("reports", summary_filename)
+    try:
+        total_files = sum(len(repo.get("files", [])) for repo in repositories_reports if isinstance(repo, dict))
+        total_lines = sum(sum(file.get("lines", 0) for file in repo.get("files", [])) for repo in repositories_reports if isinstance(repo, dict))
+        total_comments = sum(sum(file.get("comments", 0) for file in repo.get("files", [])) for repo in repositories_reports if isinstance(repo, dict))
+        total_tokens = sum(sum(file.get("tokens", 0) for file in repo.get("files", [])) for repo in repositories_reports if isinstance(repo, dict))
 
-    total_tokens = sum(repo["tokens"] for repo in repository_results)
-    
-    with open(summary_path, "w", encoding="utf-8") as f:
-        f.write(f"📄 Сводный отчёт по проекту: {project_name}\n")
-        f.write(f"📅 Дата: {get_timestamp()}\n\n")
-        f.write("📋 Анализированные репозитории:\n")
+        # Обновляем количество токенов в репозиториях для корректного отображения
+        for repo in repositories_reports:
+            repo["tokens"] = sum(file.get("tokens", 0) for file in repo.get("files", []))
 
-        for idx, repo in enumerate(repository_results, start=1):
-            f.write(f"{idx}. {repo['repository']} — {format_number(repo['tokens'])} токенов\n")
+    except Exception as e:
+        log(f"❌ Ошибка при обработке данных в generate_summary(): {e}", level="ERROR")
+        return None
 
-        f.write("\n🟢 Итог:\n")
-        f.write(f"📍 Общее количество токенов в проекте: {format_number(total_tokens)}\n")
+    # Формируем отчёт
+    report_content = format_project_summary(project_name, repositories_reports)
 
-    log(f"✅ Сводный отчёт сохранён: {summary_path}")
+    # Создаём папку для отчётов
+    os.makedirs(REPORTS_DIR, exist_ok=True)
+
+    # Создаём имя файла с временной меткой
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
+    summary_filename = f"summary_{project_name}_{timestamp}.txt"
+    summary_path = os.path.join(REPORTS_DIR, summary_filename)
+
+    # Сохраняем TXT
+    try:
+        with open(summary_path, "w", encoding="utf-8") as f:
+            f.write(report_content)
+        log(f"✅ Сводный отчёт сохранён: {summary_path}")
+
+    except Exception as e:
+        log(f"❌ Ошибка при сохранении сводного отчёта: {e}", level="ERROR")
+        return None
+
     return summary_path
-
-
-def get_timestamp():
-    """Возвращает текущее время в формате YYYY-MM-DD_HH-MM"""
-    from datetime import datetime
-    return datetime.now().strftime("%Y-%m-%d_%H-%M")

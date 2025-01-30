@@ -1,0 +1,71 @@
+{
+    "last_commit": 0,
+    "total_tokens": 16921,
+    "commit_count": 0,
+    "files": [
+        {
+            "path": "/.gitignore",
+            "tokens": 8
+        },
+        {
+            "path": "/.vscode/launch.json",
+            "tokens": 133
+        },
+        {
+            "path": "/Configuration/.env.local",
+            "tokens": 54
+        },
+        {
+            "path": "/Configuration/.env.prod",
+            "tokens": 52
+        },
+        {
+            "path": "/Configuration/config.js",
+            "tokens": 166
+        },
+        {
+            "path": "/Database/contentOperations.js",
+            "tokens": 224
+        },
+        {
+            "path": "/Database/contentValidator.js",
+            "tokens": 324
+        },
+        {
+            "path": "/Database/findOperations.js",
+            "tokens": 705
+        },
+        {
+            "path": "/Database/objectOperations.js",
+            "tokens": 1354
+        },
+        {
+            "path": "/Database/pgWrapper.js",
+            "tokens": 629
+        },
+        {
+            "path": "/Database/routers.js",
+            "tokens": 1337
+        },
+        {
+            "path": "/README.md",
+            "tokens": 372
+        },
+        {
+            "path": "/index.js",
+            "tokens": 512
+        },
+        {
+            "path": "/package-lock.json",
+            "tokens": 10877
+        },
+        {
+            "path": "/package.json",
+            "tokens": 174
+        }
+    ],
+    "analysis": {
+        "total_commits": 0,
+        "top_authors": []
+    }
+}

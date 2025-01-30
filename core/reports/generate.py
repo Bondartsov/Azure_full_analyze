@@ -1,32 +1,54 @@
-from docx import Document
-from core.logging.logger import log
 import os
+from datetime import datetime
+from core.reports.report_formatter import format_repository_report
+from core.logging.logger import log
 
-def generate_report(project_name, repository_name, total_tokens, total_commits, analysis):
+REPORTS_DIR = "reports"
+
+def generate_report(project_name, repository_name, files_data):
     """
-    Генерирует отчёт о репозитории, включая количество токенов и коммитов.
+    Генерирует отчёт по репозиторию.
+    :param project_name: Название проекта.
+    :param repository_name: Название репозитория.
+    :param files_data: Данные о файлах в репозитории (список словарей).
+    :return: Путь к сохранённому файлу.
     """
-    log("Создание отчёта...")
+    log(f"📄 Генерация отчёта для репозитория {repository_name}...")
 
-    doc = Document()
-    doc.add_heading(f'Отчёт по проекту: {project_name}', level=1)
+    # ✅ Проверка структуры `files_data`
+    if not isinstance(files_data, list):
+        log(f"❌ Ошибка: files_data должен быть списком, но получен {type(files_data)}", level="ERROR")
+        return None
 
-    doc.add_paragraph(f'📂 Репозиторий: {repository_name}')
-    doc.add_paragraph(f'📊 Общее количество токенов: {total_tokens}')
-    doc.add_paragraph(f'🔢 Общее количество коммитов: {total_commits}')
+    # ✅ Фильтрация: оставляем только корректные элементы (словари)
+    valid_files = [file for file in files_data if isinstance(file, dict)]
 
-    # Добавляем топ-авторов, если они есть
-    if analysis.get("top_authors"):
-        doc.add_heading("Топ-5 авторов:", level=2)
-        for author, commit_count in analysis["top_authors"]:
-            doc.add_paragraph(f"{author}: {commit_count} коммитов")
+    if not valid_files:
+        log(f"❌ Ошибка: Нет корректных данных о файлах для {repository_name}", level="ERROR")
+        return None
 
-    # Определяем путь к файлу отчёта
-    reports_dir = os.path.join(os.path.dirname(__file__), "../../reports")
-    os.makedirs(reports_dir, exist_ok=True)
+    # ✅ Логируем отфильтрованные файлы
+    log(f"🔍 Проверено файлов: {len(files_data)}, допустимых: {len(valid_files)}")
 
-    report_path = os.path.join(reports_dir, f"{project_name}_{repository_name}_report.docx")
-    doc.save(report_path)
+    # Создаём папку для отчётов
+    os.makedirs(REPORTS_DIR, exist_ok=True)
 
-    log(f"Отчёт успешно сохранён: {report_path}")
+    # Генерируем отчёт
+    report_content = format_repository_report(project_name, repository_name, valid_files)
+
+    # Создаём имя файла с временной меткой
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
+    report_filename = f"{project_name}_{repository_name}_report_{timestamp}.txt"
+    report_path = os.path.join(REPORTS_DIR, report_filename)
+
+    # Сохраняем отчёт
+    try:
+        with open(report_path, "w", encoding="utf-8") as f:
+            f.write(report_content)
+        log(f"✅ Отчёт сохранён: {report_path}")
+
+    except Exception as e:
+        log(f"❌ Ошибка при сохранении отчёта: {e}", level="ERROR")
+        return None
+
     return report_path

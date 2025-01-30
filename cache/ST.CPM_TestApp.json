@@ -1,0 +1,95 @@
+{
+    "last_commit": 0,
+    "total_tokens": 391763,
+    "commit_count": 0,
+    "files": [
+        {
+            "path": "/.editorconfig",
+            "tokens": 74
+        },
+        {
+            "path": "/.gitignore",
+            "tokens": 151
+        },
+        {
+            "path": "/.vscode/extensions.json",
+            "tokens": 33
+        },
+        {
+            "path": "/.vscode/launch.json",
+            "tokens": 142
+        },
+        {
+            "path": "/.vscode/tasks.json",
+            "tokens": 232
+        },
+        {
+            "path": "/README.md",
+            "tokens": 250
+        },
+        {
+            "path": "/angular.json",
+            "tokens": 565
+        },
+        {
+            "path": "/db.json",
+            "tokens": 185
+        },
+        {
+            "path": "/package-lock.json",
+            "tokens": 388839
+        },
+        {
+            "path": "/package.json",
+            "tokens": 403
+        },
+        {
+            "path": "/src/app/app.component.spec.ts",
+            "tokens": 182
+        },
+        {
+            "path": "/src/app/app.component.ts",
+            "tokens": 40
+        },
+        {
+            "path": "/src/app/app.module.ts",
+            "tokens": 64
+        },
+        {
+            "path": "/src/common-interfaces/app.interface.ts",
+            "tokens": 39
+        },
+        {
+            "path": "/src/common-interfaces/index.ts",
+            "tokens": 11
+        },
+        {
+            "path": "/src/index.html",
+            "tokens": 88
+        },
+        {
+            "path": "/src/main.ts",
+            "tokens": 42
+        },
+        {
+            "path": "/src/styles.css",
+            "tokens": 17
+        },
+        {
+            "path": "/tsconfig.app.json",
+            "tokens": 80
+        },
+        {
+            "path": "/tsconfig.json",
+            "tokens": 245
+        },
+        {
+            "path": "/tsconfig.spec.json",
+            "tokens": 81
+        }
+    ],
+    "analysis": {
+        "total_commits": 0,
+        "top_authors": []
+    }
+}
