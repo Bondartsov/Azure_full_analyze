@@ -1,35 +1,42 @@
 import tiktoken
 from tqdm import tqdm
+import os
 
 from core.azure.repos import get_repo_files, get_file_content
 from core.logging.logger import log
 
-# Исключаемые расширения файлов
-EXCLUDE_EXTENSIONS = {
-    ".jpg", ".jpeg", ".png", ".gif", ".svg", ".bmp", ".tiff", ".ico",  # Изображения
-    ".mp4", ".avi", ".mov", ".mkv", ".flv", ".wmv", ".webm",           # Видео
-    ".mp3", ".wav", ".ogg", ".flac", ".aac", ".wma",                   # Аудио
-    ".ttf", ".otf", ".woff", ".woff2",                                 # Шрифты
-    ".bin", ".dylib", ".so", ".o", ".dll",                             # Бинарные файлы
-    ".zip", ".tar", ".gz", ".bz2", ".7z",                              # Архивы
-    ".ckpt", ".pb", ".pt", ".onnx",                                    # Модели нейросетей
-    ".sqlite", ".db", ".sql", ".mdb", ".accdb"                         # Файлы баз данных
+WHITE_EXTENSIONS = {
+    # Back-end
+    ".py", ".java", ".cs", ".c", ".h", ".cpp", ".hpp", ".go", ".php", ".rb", ".rs", ".kt", ".scala",
+    # Node.js (server)
+    ".js", ".mjs", ".cjs", ".ts",
+    # Frontend (Web)
+    ".html", ".css", ".scss", ".sass", ".jsx", ".tsx", ".vue", ".svelte",
+    # iOS
+    ".swift",  # Swift
+    ".m",      # Objective-C
+    ".mm",     # Objective-C++
+    # Android (Java/Kotlin уже выше)
+    # Кроссплатформенные
+    ".dart",   # Flutter
 }
 
 def count_tokens_in_repo(project_name, repository_name):
     """
-    Подсчитывает количество токенов в репозитории, исключая бинарные файлы.
+    Подсчитывает количество токенов ТОЛЬКО в файлах, чьи расширения содержатся в WHITE_EXTENSIONS.
+
     Возвращает кортеж: (files_data, total_tokens), где
         files_data = [
-            {"path": "путь/к/файлу", "tokens": int},
+            {"path": <строка>, "tokens": <число>},
             ...
         ]
+        total_tokens (int)
     """
     total_tokens = 0
     files_data = []
     excluded_files = 0
 
-    log(f"📊 Начало подсчёта токенов в репозитории {repository_name}...")
+    log(f"📊 Начало подсчёта токенов в репозитории {repository_name} (белый список)...")
 
     files = get_repo_files(project_name, repository_name)
     if not files:
@@ -37,9 +44,10 @@ def count_tokens_in_repo(project_name, repository_name):
         return [], 0
 
     for file_path in tqdm(files, desc="Обработка файлов"):
-        # Пропускаем файлы с неподдерживаемыми расширениями
-        if any(file_path.lower().endswith(ext) for ext in EXCLUDE_EXTENSIONS):
-            log(f"⚠ Файл {file_path} исключён (неподдерживаемый формат).")
+        # Определяем расширение
+        _, ext = os.path.splitext(file_path.lower())
+
+        if ext not in WHITE_EXTENSIONS:
             excluded_files += 1
             continue
 
@@ -48,22 +56,22 @@ def count_tokens_in_repo(project_name, repository_name):
             log(f"⚠ Файл {file_path} пуст или не удалось прочитать содержимое.")
             continue
 
-        tokens = count_tokens_in_text(content)
+        tokens_count = count_tokens_in_text(content)
         files_data.append({
             "path": file_path,
-            "tokens": tokens
+            "tokens": tokens_count
         })
-        total_tokens += tokens
+        total_tokens += tokens_count
 
-        log(f"📄 Файл {file_path} → {tokens} токенов")
+        log(f"📄 Файл {file_path} → {tokens_count} токенов")
 
-    log(f"✅ DEBUG: В репозитории {repository_name} обработано {len(files_data)} файлов, "
-        f"исключено {excluded_files}, общее количество токенов: {total_tokens}")
+    log(f"✅ DEBUG: В репозитории {repository_name} "
+        f"обработано {len(files_data)} файлов (по белому списку), "
+        f"пропущено {excluded_files}, всего токенов: {total_tokens}")
 
     return files_data, total_tokens
 
-
 def count_tokens_in_text(text, model_encoding="cl100k_base"):
-    """Подсчитывает количество токенов в тексте (по умолчанию используя 'cl100k_base')."""
+    """Подсчитывает количество токенов в тексте, используя указанную модель кодировки (по умолчанию cl100k_base)."""
     encoding = tiktoken.get_encoding(model_encoding)
     return len(encoding.encode(text))

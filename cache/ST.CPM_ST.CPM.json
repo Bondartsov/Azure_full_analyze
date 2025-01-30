@@ -1,26 +1,6 @@
 {
-    "total_tokens": 16921,
+    "total_tokens": 5251,
     "files": [
-        {
-            "path": "/.gitignore",
-            "tokens": 8,
-            "hash": null
-        },
-        {
-            "path": "/.vscode/launch.json",
-            "tokens": 133,
-            "hash": null
-        },
-        {
-            "path": "/Configuration/.env.local",
-            "tokens": 54,
-            "hash": null
-        },
-        {
-            "path": "/Configuration/.env.prod",
-            "tokens": 52,
-            "hash": null
-        },
         {
             "path": "/Configuration/config.js",
             "tokens": 166,
@@ -57,23 +37,8 @@
             "hash": null
         },
         {
-            "path": "/README.md",
-            "tokens": 372,
-            "hash": null
-        },
-        {
             "path": "/index.js",
             "tokens": 512,
-            "hash": null
-        },
-        {
-            "path": "/package-lock.json",
-            "tokens": 10877,
-            "hash": null
-        },
-        {
-            "path": "/package.json",
-            "tokens": 174,
             "hash": null
         }
     ]

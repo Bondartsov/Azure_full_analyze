@@ -48,18 +48,16 @@ def is_repo_changed(project_name, repository_name, latest_commit=None):
     """
     cached_data = load_cache(project_name, repository_name)
     if not cached_data:
-        # Нет кэша, значит новый или изменён
-        return True
+        return True  # Нет кэша → новое/изменённое
 
     cached_files = cached_data.get("files", [])
     for file_info in cached_files:
         if "path" not in file_info or "hash" not in file_info:
-            # Если нет пути или хеша, считаем, что нужно пересчитать
-            return True
+            return True  # Данных недостаточно, нужно пересчитать
 
         current_hash = get_file_hash(file_info["path"])
         if file_info["hash"] != current_hash:
-            return True
+            return True  # Файл изменился
 
     return False
 
@@ -70,15 +68,14 @@ def save_repo_data_to_cache(project_name, repository_name, total_tokens, files_d
     :param repository_name: Название репозитория
     :param total_tokens: Общее число токенов
     :param files_data: Список словарей вида [{"path": "...", "tokens": N}, ...]
-                       Желательно дополнить каждый объект "hash": хеш_файла,
-                       чтобы потом корректно отрабатывать is_repo_changed.
+                       Желательно при сохранении заполнить "hash" у каждого файла,
+                       чтобы потом корректно определять изменения.
     """
     data = {
         "total_tokens": total_tokens,
         "files": files_data
     }
-    # Если хотим, можем тут же добавить поле "hash" для каждого файла
-    # при сохранении, чтобы потом корректно проверять изменения:
+    # Дополняем "hash" для каждого файла
     for f in data["files"]:
         if "path" in f:
             f["hash"] = get_file_hash(f["path"])
@@ -107,19 +104,37 @@ def get_file_hash(file_path):
         with open(file_path, "rb") as f:
             return sha256(f.read()).hexdigest()
     except Exception:
-        # Если файл отсутствует или ошибка чтения
-        return None
+        return None  # Если файл отсутствует или ошибка чтения
 
 def clear_cache_for_repo(project_name, repository_name):
-    """Удаляет кэш для одного репозитория."""
+    """Удаляет кэш для одного репозитория (файл {project_name}_{repository_name}.json)."""
     cache_file = get_cache_path(project_name, repository_name)
     if os.path.exists(cache_file):
         os.remove(cache_file)
         log(f"🗑️ Кэш удалён для репозитория: {repository_name}")
 
 def clear_project_summary_cache(project_name):
-    """Удаляет сводный кэш проекта."""
-    cache_file = get_cache_path(project_name)
-    if os.path.exists(cache_file):
-        os.remove(cache_file)
-        log(f"🗑️ Кэш удалён для проекта: {project_name}")
+    """
+    Удаляет все файлы кэша для данного проекта (включая сводный).
+    Т.е. любой файл, начинающийся с "{project_name}_" в папке cache.
+    Пример: "ST.CPM_Infrastructure.json", "ST.CPM_summary.json", ...
+    """
+    if not os.path.exists(CACHE_DIR):
+        return
+
+    cache_files = os.listdir(CACHE_DIR)
+    pattern = f"{project_name}_"
+    removed_any = False
+
+    for filename in cache_files:
+        if filename.startswith(pattern):
+            full_path = os.path.join(CACHE_DIR, filename)
+            if os.path.isfile(full_path):
+                os.remove(full_path)
+                removed_any = True
+                log(f"🗑️ Кэш {filename} удалён для проекта: {project_name}")
+
+    if not removed_any:
+        log(f"⚠ Не найдено файлов кэша для проекта: {project_name}")
+    else:
+        log(f"✅ Кэш проекта {project_name} успешно очищен!")

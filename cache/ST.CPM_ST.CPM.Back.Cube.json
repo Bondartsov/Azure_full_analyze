@@ -1,0 +1,100 @@
+{
+    "total_tokens": 3696,
+    "files": [
+        {
+            "path": "/src/Cube.Domain/BaseEntity.cs",
+            "tokens": 65,
+            "hash": null
+        },
+        {
+            "path": "/src/Cube.Domain/Cube.cs",
+            "tokens": 191,
+            "hash": null
+        },
+        {
+            "path": "/src/Cube.Domain/CubeFactory.cs",
+            "tokens": 39,
+            "hash": null
+        },
+        {
+            "path": "/src/Cube.Domain/Dimension/AttributesFilter.cs",
+            "tokens": 129,
+            "hash": null
+        },
+        {
+            "path": "/src/Cube.Domain/Dimension/Dimension.cs",
+            "tokens": 144,
+            "hash": null
+        },
+        {
+            "path": "/src/Cube.Domain/Dimension/DimensionAttribute.cs",
+            "tokens": 84,
+            "hash": null
+        },
+        {
+            "path": "/src/Cube.Domain/Dimension/DimensionFilters.cs",
+            "tokens": 196,
+            "hash": null
+        },
+        {
+            "path": "/src/Cube.Domain/Dimension/DimensionItem.cs",
+            "tokens": 130,
+            "hash": null
+        },
+        {
+            "path": "/src/Cube.Domain/Dimension/HierarchicalFilter.cs",
+            "tokens": 131,
+            "hash": null
+        },
+        {
+            "path": "/src/Cube.Domain/Extensions/CollectionDimensionItemExtension.cs",
+            "tokens": 71,
+            "hash": null
+        },
+        {
+            "path": "/src/Cube.Domain/Measure/IAggregateFunction.cs",
+            "tokens": 46,
+            "hash": null
+        },
+        {
+            "path": "/src/Cube.Domain/Measure/ICalculationAlgorithm.cs",
+            "tokens": 19,
+            "hash": null
+        },
+        {
+            "path": "/src/Cube.Domain/Measure/IDistributionAlgorithm.cs",
+            "tokens": 39,
+            "hash": null
+        },
+        {
+            "path": "/src/Cube.Domain/Measure/Measure.cs",
+            "tokens": 162,
+            "hash": null
+        },
+        {
+            "path": "/src/Cube.Domain/Measure/SumAggregate.cs",
+            "tokens": 41,
+            "hash": null
+        },
+        {
+            "path": "/src/Cube.Domain/QueryBuilder.cs",
+            "tokens": 485,
+            "hash": null
+        },
+        {
+            "path": "/src/Cube.Domain/Slice.cs",
+            "tokens": 638,
+            "hash": null
+        },
+        {
+            "path": "/test/Test.Domain/CubeTest.cs",
+            "tokens": 793,
+            "hash": null
+        },
+        {
+            "path": "/test/Test.Domain/QueryBuilderTest.cs",
+            "tokens": 293,
+            "hash": null
+        }
+    ]
+}
