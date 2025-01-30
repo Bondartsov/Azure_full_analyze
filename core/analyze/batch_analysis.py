@@ -1,53 +1,70 @@
-## core/analyze/batch_analysis.py
-
-from tqdm import tqdm
+import json
 from core.analyze.repository_analysis import analyze_repository
 from core.reports.summary import generate_summary
 from core.logging.logger import log
 from core.utils.cache import is_repo_changed
-from core.azure.repo_commits import get_last_commit
-import json
 
 def analyze_all_repositories(project_name, repositories):
     """
     Анализирует все репозитории в проекте и создаёт сводный отчёт.
+    Разные сообщения:
+      - "<repo> взят из кэша", если repo_changed = False
+      - "🔍 Идёт анализ <repo>..."  если repo_changed = True
     """
+    repositories_count = len(repositories)
     log(f"📊 Начат анализ всех репозиториев проекта {project_name}...")
 
+    # ---- Пустая строка, чтобы отделить вывод меню от анализа:
+    print()
+
+    # Верхний блок-«рамка»
+    print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    print(f"🔎 Старт анализа: проект «{project_name}», репозиториев: {repositories_count}")
+    print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n")
+
     repository_results = []
-    with tqdm(total=len(repositories), desc="⏳ Общий анализ проекта", unit="репо") as progress_bar:
-        for repository in repositories:
-            repository_name = repository.name
 
-            # ✅ Получаем последний коммит перед проверкой кэша
-            latest_commit = get_last_commit(project_name, repository_name)
+    for i, repository in enumerate(repositories, start=1):
+        repository_name = repository.name
 
-            # ✅ Передаём `latest_commit` в `is_repo_changed`
-            repo_changed = is_repo_changed(project_name, repository_name, latest_commit)
+        # 1. Проверка, изменился ли репозиторий
+        repo_changed = is_repo_changed(project_name, repository_name)
 
-            # 📌 Отладочный вывод перед анализом
-            print(f"\n[DEBUG] 🔍 Анализ репозитория: {repository_name}")
-            print(f"   🔹 Изменился: {repo_changed}")
-            print(f"   🔹 Последний коммит: {latest_commit}")
+        # 2. Выводим, откуда берём данные — из кэша или анализ с нуля
+        if not repo_changed:
+            print(f"{repository_name} взят из кэша")
+        else:
+            print(f"🔍 Идёт анализ {repository_name}...")
 
-            result = analyze_repository(project_name, repository, progress_bar)
+        # 3. Запуск анализа, передаём признак изменения
+        result = analyze_repository(project_name, repository, repo_changed)
 
-            if result:
-                print(f"[DEBUG] ✅ Анализ завершён, данные:")
-                print(json.dumps(result, indent=4, ensure_ascii=False))
-                repository_results.append(result)
-            else:
-                print(f"[DEBUG] ❌ Анализ не дал результатов для {repository_name}")
+        # 4. Итоги анализа
+        if result:
+            tokens_str = f"{result['tokens']:,}".replace(",", " ")
+            print(f"💠Анализ {repository_name} завершён, количество токенов: {tokens_str}")
 
-    # Генерация сводного отчёта
+            # Отчёт (если хотим вывести)
+            report_path = result.get("report_path")
+            if report_path:
+                print(f"📄 Отчёт анализа {repository_name} сохранён: {report_path}")
+
+            repository_results.append(result)
+        else:
+            print(f"⚠ Анализ не дал результатов для {repository_name}")
+
+        # 5. Прогресс анализа по всему проекту
+        progress_percent = int((i / repositories_count) * 100)
+        print(f"📈 Прогресс анализа проекта «{project_name}»: {progress_percent}%\n")
+
+    # 6. Генерация сводного отчёта
     if repository_results:
-        print(f"\n[DEBUG] 📊 Список результатов для сводного отчёта:")
-        print(json.dumps(repository_results, indent=4, ensure_ascii=False))
         summary_path = generate_summary(project_name, repository_results)
         if summary_path:
             log(f"📄 Сводный отчёт сохранён: {summary_path}")
-            print(f"\n📄 Сводный отчёт создан: {summary_path}")
+            print(f"📄 Сводный отчёт по проекту «{project_name}» создан: {summary_path}")
     else:
         log(f"⚠ Не удалось создать сводный отчёт: нет обработанных репозиториев.", level="WARNING")
 
     log(f"✅ Анализ всех репозиториев проекта {project_name} завершён!")
+    print(f"✅ Анализ всех репозиториев проекта «{project_name}» завершён!")

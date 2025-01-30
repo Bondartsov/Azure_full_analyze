@@ -5,18 +5,20 @@ from core.logging.logger import log
 CACHE_DIR = "cache"
 
 def get_cache_path(project_name, repository_name=None):
-    """Возвращает путь к файлу кэша."""
-    os.makedirs(CACHE_DIR, exist_ok=True)  # Гарантируем, что папка для кэша существует
+    """
+    Возвращает путь к файлу кэша.
+    Если repository_name не указано, считается, что мы хотим сохранить сводный кэш по всему проекту.
+    """
+    os.makedirs(CACHE_DIR, exist_ok=True)
     if repository_name:
         return os.path.join(CACHE_DIR, f"{project_name}_{repository_name}.json")
     return os.path.join(CACHE_DIR, f"{project_name}_summary.json")
 
 def load_cache(project_name, repository_name=None):
-    """Загружает данные кэша."""
+    """Загружает данные из кэша (json)."""
     cache_file = get_cache_path(project_name, repository_name)
     if not os.path.exists(cache_file):
         return None
-
     try:
         with open(cache_file, "r", encoding="utf-8") as f:
             return json.load(f)
@@ -25,9 +27,8 @@ def load_cache(project_name, repository_name=None):
         return None
 
 def save_cache(data, project_name, repository_name=None):
-    """Сохраняет данные в кэш."""
+    """Сохраняет данные в кэш (json)."""
     cache_file = get_cache_path(project_name, repository_name)
-
     try:
         with open(cache_file, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
@@ -35,79 +36,79 @@ def save_cache(data, project_name, repository_name=None):
     except Exception as e:
         log(f"⚠ Ошибка сохранения кэша {cache_file}: {e}", level="ERROR")
 
-def is_repo_changed(project_name, repository_name, latest_commit):
+def is_repo_changed(project_name, repository_name, latest_commit=None):
     """
-    Проверяет, изменился ли репозиторий по последнему коммиту или файлам.
-    ВАЖНО: Сейчас last_commit в кэше хранится commit_count, а не реальный хеш!
-           Поэтому сравнение cached_data.get("last_commit") != latest_commit
-           (где latest_commit - строка-хеш) всегда будет True.
+    Проверяем, изменился ли репозиторий, глядя только на файлы.
+    Параметр latest_commit добавлен для совместимости, но здесь не используется.
+    Если в кэше есть список файлов и у каждого есть "hash",
+    мы сверяем его с текущим хешем.
+    Если хотя бы один файл не совпал — считаем, что репозиторий изменился.
+
+    Если кэша нет — считаем, что репо новое или изменилось.
     """
     cached_data = load_cache(project_name, repository_name)
-
     if not cached_data:
-        return True  # Нет данных — значит, репозиторий новый
-
-    # Сравнение "last_commit" и latest_commit не будет работать корректно,
-    # так как в "last_commit" фактически лежит число коммитов (commit_count).
-    if cached_data.get("last_commit") != latest_commit:
+        # Нет кэша, значит новый или изменён
         return True
 
-    # Проверяем изменения по файлам
     cached_files = cached_data.get("files", [])
-    for file in cached_files:
-        if "path" in file and "hash" in file:
-            if file["hash"] != get_file_hash(project_name, repository_name, file["path"]):
-                return True  # Файл изменился
+    for file_info in cached_files:
+        if "path" not in file_info or "hash" not in file_info:
+            # Если нет пути или хеша, считаем, что нужно пересчитать
+            return True
 
-    return False  # Изменений не найдено
+        current_hash = get_file_hash(file_info["path"])
+        if file_info["hash"] != current_hash:
+            return True
 
-def save_repo_data_to_cache(project_name, repository_name, total_tokens, commit_count, files_data, analysis):
+    return False
+
+def save_repo_data_to_cache(project_name, repository_name, total_tokens, files_data):
     """
     Сохраняет данные о репозитории в кэш.
-
     :param project_name: Название проекта
     :param repository_name: Название репозитория
     :param total_tokens: Общее число токенов
-    :param commit_count: Количество коммитов (на текущий момент используется вместо last_commit!)
-    :param files_data: Список (или словарь) данных по файлам
-    :param analysis: Результат анализа (dict)
+    :param files_data: Список словарей вида [{"path": "...", "tokens": N}, ...]
+                       Желательно дополнить каждый объект "hash": хеш_файла,
+                       чтобы потом корректно отрабатывать is_repo_changed.
     """
-    # last_commit фактически записываем числом commit_count. 
-    # Если хочешь хранить реальный хеш, передавай его сюда вместо commit_count.
     data = {
-        "last_commit": commit_count,  # ВНИМАНИЕ: здесь commit_count вместо реального коммита
         "total_tokens": total_tokens,
-        "commit_count": commit_count,
-        "files": files_data,
-        "analysis": analysis
+        "files": files_data
     }
+    # Если хотим, можем тут же добавить поле "hash" для каждого файла
+    # при сохранении, чтобы потом корректно проверять изменения:
+    for f in data["files"]:
+        if "path" in f:
+            f["hash"] = get_file_hash(f["path"])
+
     save_cache(data, project_name, repository_name)
 
 def load_repo_data_from_cache(project_name, repository_name):
     """
     Загружает данные репозитория из кэша.
-    Возвращает кортеж:
-    (total_tokens, commit_count, files_data, analysis) или None, если кэша нет.
+    Возвращает dict, содержащий "total_tokens" и "files",
+    или None, если кэша нет.
     """
     cached_data = load_cache(project_name, repository_name)
     if not cached_data:
         return None
+    return cached_data
 
-    total_tokens = cached_data.get("total_tokens", 0)
-    commit_count = cached_data.get("commit_count", 0)
-    files_data = cached_data.get("files", [])
-    analysis = cached_data.get("analysis", {})
-
-    return total_tokens, commit_count, files_data, analysis
-
-def get_file_hash(project_name, repository_name, file_path):
-    """Генерирует хеш файла для проверки изменений."""
+def get_file_hash(file_path):
+    """
+    Генерирует хеш файла для проверки изменений.
+    NB: Эта функция не знает о project_name/repository_name,
+        просто читает локальный файл.
+    """
     from hashlib import sha256
     try:
         with open(file_path, "rb") as f:
             return sha256(f.read()).hexdigest()
     except Exception:
-        return None  # Если файл отсутствует или ошибка чтения, возвращаем None
+        # Если файл отсутствует или ошибка чтения
+        return None
 
 def clear_cache_for_repo(project_name, repository_name):
     """Удаляет кэш для одного репозитория."""

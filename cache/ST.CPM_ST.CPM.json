@@ -1,71 +1,80 @@
 {
-    "last_commit": 0,
     "total_tokens": 16921,
-    "commit_count": 0,
     "files": [
         {
             "path": "/.gitignore",
-            "tokens": 8
+            "tokens": 8,
+            "hash": null
         },
         {
             "path": "/.vscode/launch.json",
-            "tokens": 133
+            "tokens": 133,
+            "hash": null
         },
         {
             "path": "/Configuration/.env.local",
-            "tokens": 54
+            "tokens": 54,
+            "hash": null
         },
         {
             "path": "/Configuration/.env.prod",
-            "tokens": 52
+            "tokens": 52,
+            "hash": null
         },
         {
             "path": "/Configuration/config.js",
-            "tokens": 166
+            "tokens": 166,
+            "hash": null
         },
         {
             "path": "/Database/contentOperations.js",
-            "tokens": 224
+            "tokens": 224,
+            "hash": null
         },
         {
             "path": "/Database/contentValidator.js",
-            "tokens": 324
+            "tokens": 324,
+            "hash": null
         },
         {
             "path": "/Database/findOperations.js",
-            "tokens": 705
+            "tokens": 705,
+            "hash": null
         },
         {
             "path": "/Database/objectOperations.js",
-            "tokens": 1354
+            "tokens": 1354,
+            "hash": null
         },
         {
             "path": "/Database/pgWrapper.js",
-            "tokens": 629
+            "tokens": 629,
+            "hash": null
         },
         {
             "path": "/Database/routers.js",
-            "tokens": 1337
+            "tokens": 1337,
+            "hash": null
         },
         {
             "path": "/README.md",
-            "tokens": 372
+            "tokens": 372,
+            "hash": null
         },
         {
             "path": "/index.js",
-            "tokens": 512
+            "tokens": 512,
+            "hash": null
         },
         {
             "path": "/package-lock.json",
-            "tokens": 10877
+            "tokens": 10877,
+            "hash": null
         },
         {
             "path": "/package.json",
-            "tokens": 174
+            "tokens": 174,
+            "hash": null
         }
-    ],
-    "analysis": {
-        "total_commits": 0,
-        "top_authors": []
-    }
+    ]
 }

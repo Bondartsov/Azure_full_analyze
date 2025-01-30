@@ -24,10 +24,8 @@ def main():
 
     # Запуск анализа
     if repositories:
-        print(f"[DEBUG] Старт анализа, выбран проект: {project_name}, Кол-во репозиториев: {len(repositories)}", flush=True)
         analyze_all_repositories(project_name, repositories)
     else:
-        print(f"[DEBUG] Старт анализа одного репозитория: {single_repository.name}", flush=True)
         analyze_repository(project_name, single_repository, progress_bar=None)
     
     print(f"🎉 Анализ завершён для {project_name}", flush=True)

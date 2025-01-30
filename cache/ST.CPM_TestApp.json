@@ -1,95 +1,110 @@
 {
-    "last_commit": 0,
     "total_tokens": 391763,
-    "commit_count": 0,
     "files": [
         {
             "path": "/.editorconfig",
-            "tokens": 74
+            "tokens": 74,
+            "hash": null
         },
         {
             "path": "/.gitignore",
-            "tokens": 151
+            "tokens": 151,
+            "hash": null
         },
         {
             "path": "/.vscode/extensions.json",
-            "tokens": 33
+            "tokens": 33,
+            "hash": null
         },
         {
             "path": "/.vscode/launch.json",
-            "tokens": 142
+            "tokens": 142,
+            "hash": null
         },
         {
             "path": "/.vscode/tasks.json",
-            "tokens": 232
+            "tokens": 232,
+            "hash": null
         },
         {
             "path": "/README.md",
-            "tokens": 250
+            "tokens": 250,
+            "hash": null
         },
         {
             "path": "/angular.json",
-            "tokens": 565
+            "tokens": 565,
+            "hash": null
         },
         {
             "path": "/db.json",
-            "tokens": 185
+            "tokens": 185,
+            "hash": null
         },
         {
             "path": "/package-lock.json",
-            "tokens": 388839
+            "tokens": 388839,
+            "hash": null
         },
         {
             "path": "/package.json",
-            "tokens": 403
+            "tokens": 403,
+            "hash": null
         },
         {
             "path": "/src/app/app.component.spec.ts",
-            "tokens": 182
+            "tokens": 182,
+            "hash": null
         },
         {
             "path": "/src/app/app.component.ts",
-            "tokens": 40
+            "tokens": 40,
+            "hash": null
         },
         {
             "path": "/src/app/app.module.ts",
-            "tokens": 64
+            "tokens": 64,
+            "hash": null
         },
         {
             "path": "/src/common-interfaces/app.interface.ts",
-            "tokens": 39
+            "tokens": 39,
+            "hash": null
         },
         {
             "path": "/src/common-interfaces/index.ts",
-            "tokens": 11
+            "tokens": 11,
+            "hash": null
         },
         {
             "path": "/src/index.html",
-            "tokens": 88
+            "tokens": 88,
+            "hash": null
         },
         {
             "path": "/src/main.ts",
-            "tokens": 42
+            "tokens": 42,
+            "hash": null
         },
         {
             "path": "/src/styles.css",
-            "tokens": 17
+            "tokens": 17,
+            "hash": null
         },
         {
             "path": "/tsconfig.app.json",
-            "tokens": 80
+            "tokens": 80,
+            "hash": null
         },
         {
             "path": "/tsconfig.json",
-            "tokens": 245
+            "tokens": 245,
+            "hash": null
         },
         {
             "path": "/tsconfig.spec.json",
-            "tokens": 81
+            "tokens": 81,
+            "hash": null
         }
-    ],
-    "analysis": {
-        "total_commits": 0,
-        "top_authors": []
-    }
+    ]
 }

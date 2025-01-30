@@ -1,111 +1,130 @@
 {
-    "last_commit": 0,
     "total_tokens": 10468,
-    "commit_count": 0,
     "files": [
         {
             "path": "/DockerCompose/LocalDev/auth-seeding/clients_test.json",
-            "tokens": 365
+            "tokens": 365,
+            "hash": null
         },
         {
             "path": "/DockerCompose/LocalDev/auth-seeding/users_test.json",
-            "tokens": 175
+            "tokens": 175,
+            "hash": null
         },
         {
             "path": "/DockerCompose/LocalDev/env/auth-backend.env",
-            "tokens": 158
+            "tokens": 158,
+            "hash": null
         },
         {
             "path": "/DockerCompose/LocalDev/env/backend.env",
-            "tokens": 592
+            "tokens": 592,
+            "hash": null
         },
         {
             "path": "/DockerCompose/LocalDev/env/clickhouse.env",
-            "tokens": 27
+            "tokens": 27,
+            "hash": null
         },
         {
             "path": "/DockerCompose/LocalDev/env/common.env",
-            "tokens": 153
+            "tokens": 153,
+            "hash": null
         },
         {
             "path": "/DockerCompose/LocalDev/env/kafka.env",
-            "tokens": 358
+            "tokens": 358,
+            "hash": null
         },
         {
             "path": "/DockerCompose/LocalDev/env/postgres.env",
-            "tokens": 22
+            "tokens": 22,
+            "hash": null
         },
         {
             "path": "/DockerCompose/LocalDev/env/scheduler.env",
-            "tokens": 314
+            "tokens": 314,
+            "hash": null
         },
         {
             "path": "/DockerCompose/LocalDev/main-local.yml",
-            "tokens": 815
+            "tokens": 815,
+            "hash": null
         },
         {
             "path": "/DockerCompose/LocalDev/main.yml",
-            "tokens": 2059
+            "tokens": 2059,
+            "hash": null
         },
         {
             "path": "/DockerCompose/LocalDev/web-admin/appsettings.json",
-            "tokens": 193
+            "tokens": 193,
+            "hash": null
         },
         {
             "path": "/DockerCompose/StandDev/auth-seeding/clients_test.json",
-            "tokens": 388
+            "tokens": 388,
+            "hash": null
         },
         {
             "path": "/DockerCompose/StandDev/auth-seeding/users_test.json",
-            "tokens": 175
+            "tokens": 175,
+            "hash": null
         },
         {
             "path": "/DockerCompose/StandDev/env/auth-backend.env",
-            "tokens": 161
+            "tokens": 161,
+            "hash": null
         },
         {
             "path": "/DockerCompose/StandDev/env/backend.env",
-            "tokens": 641
+            "tokens": 641,
+            "hash": null
         },
         {
             "path": "/DockerCompose/StandDev/env/clickhouse.env",
-            "tokens": 27
+            "tokens": 27,
+            "hash": null
         },
         {
             "path": "/DockerCompose/StandDev/env/common.env",
-            "tokens": 153
+            "tokens": 153,
+            "hash": null
         },
         {
             "path": "/DockerCompose/StandDev/env/kafka.env",
-            "tokens": 358
+            "tokens": 358,
+            "hash": null
         },
         {
             "path": "/DockerCompose/StandDev/env/postgres.env",
-            "tokens": 22
+            "tokens": 22,
+            "hash": null
         },
         {
             "path": "/DockerCompose/StandDev/env/scheduler.env",
-            "tokens": 320
+            "tokens": 320,
+            "hash": null
         },
         {
             "path": "/DockerCompose/StandDev/main.yml",
-            "tokens": 2304
+            "tokens": 2304,
+            "hash": null
         },
         {
             "path": "/DockerCompose/StandDev/web-admin/appsettings.json",
-            "tokens": 199
+            "tokens": 199,
+            "hash": null
         },
         {
             "path": "/README.md",
-            "tokens": 389
+            "tokens": 389,
+            "hash": null
         },
         {
             "path": "/yaml/ST.CPM.Infrastructure.yml",
-            "tokens": 100
+            "tokens": 100,
+            "hash": null
         }
-    ],
-    "analysis": {
-        "total_commits": 0,
-        "top_authors": []
-    }
+    ]
 }

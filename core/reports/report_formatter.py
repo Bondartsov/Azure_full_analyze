@@ -48,9 +48,6 @@ def format_repository_report(project_name, repository_name, files_data):
     report_lines.append(f"🏷 Всего токенов: {total_tokens}")
     report_lines.append("=" * 100)
 
-    # Логирование данных для отладки
-    print(f"\n[DEBUG] Файлы, переданные в форматирование для {repository_name}:")
-    print(json.dumps(files_data, indent=4, ensure_ascii=False))
 
     return "\n".join(report_lines)
 
