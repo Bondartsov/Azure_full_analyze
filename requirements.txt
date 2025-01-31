@@ -21,4 +21,4 @@ python-docx
 tiktoken
 tqdm
 pylint
-
+openai==0.28

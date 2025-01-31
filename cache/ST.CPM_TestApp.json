@@ -4,41 +4,57 @@
         {
             "path": "/src/app/app.component.spec.ts",
             "tokens": 182,
+            "lines": 32,
+            "comments": 0,
             "hash": null
         },
         {
             "path": "/src/app/app.component.ts",
             "tokens": 40,
+            "lines": 10,
+            "comments": 0,
             "hash": null
         },
         {
             "path": "/src/app/app.module.ts",
             "tokens": 64,
+            "lines": 17,
+            "comments": 0,
             "hash": null
         },
         {
             "path": "/src/common-interfaces/app.interface.ts",
             "tokens": 39,
+            "lines": 8,
+            "comments": 0,
             "hash": null
         },
         {
             "path": "/src/common-interfaces/index.ts",
             "tokens": 11,
+            "lines": 2,
+            "comments": 0,
             "hash": null
         },
         {
             "path": "/src/index.html",
             "tokens": 88,
+            "lines": 14,
+            "comments": 0,
             "hash": null
         },
         {
             "path": "/src/main.ts",
             "tokens": 42,
+            "lines": 8,
+            "comments": 0,
             "hash": null
         },
         {
             "path": "/src/styles.css",
             "tokens": 17,
+            "lines": 2,
+            "comments": 1,
             "hash": null
         }
     ]
