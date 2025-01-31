@@ -1,6 +1,11 @@
 {
-    "total_tokens": 1405519,
+    "total_tokens": 1434624,
     "files": [
+        {
+            "path": "/src/Clones/Clones.Application/Clones.Application.csproj",
+            "tokens": 122,
+            "hash": null
+        },
         {
             "path": "/src/Clones/Clones.Application/ClonesApplicationReference.cs",
             "tokens": 16,
@@ -19,6 +24,16 @@
         {
             "path": "/src/Clones/Clones.Domain/Abstract/IClonaber.cs",
             "tokens": 71,
+            "hash": null
+        },
+        {
+            "path": "/src/Clones/Clones.Domain/Clones.Domain.csproj",
+            "tokens": 58,
+            "hash": null
+        },
+        {
+            "path": "/src/Clones/Clones.Infrastructure/Clones.Infrastructure.csproj",
+            "tokens": 115,
             "hash": null
         },
         {
@@ -44,6 +59,11 @@
         {
             "path": "/src/Common/BaseEntityContractMethods/INamedEntity.cs",
             "tokens": 57,
+            "hash": null
+        },
+        {
+            "path": "/src/Common/Common.csproj",
+            "tokens": 108,
             "hash": null
         },
         {
@@ -157,6 +177,11 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/ConnectionPersistence/ConnectionPersistence.csproj",
+            "tokens": 170,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/ConnectionPersistence/ConnectionPresistenceReference.cs",
             "tokens": 15,
             "hash": null
@@ -239,6 +264,11 @@
         {
             "path": "/src/ETL/DataCore/DataCore.Application/DTO/Selects/SelectColumnsDTO.cs",
             "tokens": 359,
+            "hash": null
+        },
+        {
+            "path": "/src/ETL/DataCore/DataCore.Application/DataCore.Application.csproj",
+            "tokens": 196,
             "hash": null
         },
         {
@@ -424,6 +454,11 @@
         {
             "path": "/src/ETL/DataCore/DataCore.Domain/CreateFactoriesParameters/CreateDataFilterParameters.cs",
             "tokens": 91,
+            "hash": null
+        },
+        {
+            "path": "/src/ETL/DataCore/DataCore.Domain/DataCore.Domain.csproj",
+            "tokens": 120,
             "hash": null
         },
         {
@@ -922,6 +957,11 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/DataCore/DataCore.Infrastructure/DataCore.Infrastructure.csproj",
+            "tokens": 419,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/DataCore/DataCore.Infrastructure/Entities/PgDataReaderWrapper.cs",
             "tokens": 233,
             "hash": null
@@ -1147,6 +1187,11 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/DataCore/DataCore.Test/DataCore.Test.csproj",
+            "tokens": 469,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/DataCore/DataCore.Test/DatabaseGateMock.cs",
             "tokens": 163,
             "hash": null
@@ -1222,6 +1267,11 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/ETL.Tests/ETL.Tests.csproj",
+            "tokens": 324,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/ETL.Tests/SourceTest/SourceMocks/CsvDataGateMock.cs",
             "tokens": 160,
             "hash": null
@@ -1269,6 +1319,11 @@
         {
             "path": "/src/ETL/Excel/Excel.Application/DTO/ExcelFileDTO.cs",
             "tokens": 42,
+            "hash": null
+        },
+        {
+            "path": "/src/ETL/Excel/Excel.Application/Excel.Application.csproj",
+            "tokens": 171,
             "hash": null
         },
         {
@@ -1327,6 +1382,11 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/Excel/Excel.ConsoleSandbox/Excel.ConsoleSandbox.csproj",
+            "tokens": 207,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/Excel/Excel.ConsoleSandbox/Program.cs",
             "tokens": 679,
             "hash": null
@@ -1342,8 +1402,18 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/Excel/Excel.Domain/Excel.Domain.csproj",
+            "tokens": 84,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/Excel/Excel.Domain/Interfaces/IExcelDataGateService.cs",
             "tokens": 44,
+            "hash": null
+        },
+        {
+            "path": "/src/ETL/Excel/Excel.Infrastructure/Excel.Infrastructure.csproj",
+            "tokens": 165,
             "hash": null
         },
         {
@@ -1387,6 +1457,11 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/Excel/Excel.Test/Excel.Test.csproj",
+            "tokens": 186,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/Excel/Excel.Test/UnitTest1.cs",
             "tokens": 46,
             "hash": null
@@ -1399,6 +1474,11 @@
         {
             "path": "/src/ETL/ExpressionsItem/ExpressionItem.Application/DTO/ExpressionItemDTO.cs",
             "tokens": 438,
+            "hash": null
+        },
+        {
+            "path": "/src/ETL/ExpressionsItem/ExpressionItem.Application/ExpressionsItem.Application.csproj",
+            "tokens": 97,
             "hash": null
         },
         {
@@ -1417,6 +1497,11 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/ExpressionsItem/ExpressionsItem.Domain/ExpressionsItem.Domain.csproj",
+            "tokens": 79,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/ExternalScripts/ExternalScript.Application/DTO/ExternalScriptDTO.cs",
             "tokens": 203,
             "hash": null
@@ -1429,6 +1514,11 @@
         {
             "path": "/src/ETL/ExternalScripts/ExternalScript.Application/ExternalScriptApplicationReference.cs",
             "tokens": 19,
+            "hash": null
+        },
+        {
+            "path": "/src/ETL/ExternalScripts/ExternalScript.Application/ExternalScripts.Application.csproj",
+            "tokens": 172,
             "hash": null
         },
         {
@@ -1497,6 +1587,11 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/ExternalScripts/ExternalScript.Domain/ExternalScripts.Domain.csproj",
+            "tokens": 79,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/ExternalScripts/ExternalScript.Domain/Interfaces/IExternalScriptFileUploader.cs",
             "tokens": 104,
             "hash": null
@@ -1542,6 +1637,11 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/ExternalScripts/ExternalScript.Infrastructure/ExternalScripts.Infrastructure.csproj",
+            "tokens": 209,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/ExternalScripts/ExternalScript.Infrastructure/Repositories/ExternalScriptRepository.cs",
             "tokens": 260,
             "hash": null
@@ -1574,6 +1674,11 @@
         {
             "path": "/src/ETL/JournalTimeActiveSources/JournalTimeActiveSources.Application/DTO/JournalTimeActiveSourceDTO.cs",
             "tokens": 278,
+            "hash": null
+        },
+        {
+            "path": "/src/ETL/JournalTimeActiveSources/JournalTimeActiveSources.Application/JournalTimeActiveSources.Application.csproj",
+            "tokens": 131,
             "hash": null
         },
         {
@@ -1612,6 +1717,11 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/JournalTimeActiveSources/JournalTimeActiveSources.Domain/JournalTimeActiveSources.Domain.csproj",
+            "tokens": 97,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/JournalTimeActiveSources/JournalTimeActiveSources.Infrastructure/EntityConfigurations/JournalActivitySourceConfiguration.cs",
             "tokens": 137,
             "hash": null
@@ -1624,6 +1734,11 @@
         {
             "path": "/src/ETL/JournalTimeActiveSources/JournalTimeActiveSources.Infrastructure/JournalActivitySourceBootstrap.cs",
             "tokens": 160,
+            "hash": null
+        },
+        {
+            "path": "/src/ETL/JournalTimeActiveSources/JournalTimeActiveSources.Infrastructure/JournalTimeActiveSources.Infrastructure.csproj",
+            "tokens": 197,
             "hash": null
         },
         {
@@ -1664,6 +1779,11 @@
         {
             "path": "/src/ETL/LookUps/LookUps.Application/LookUpApplicationReference.cs",
             "tokens": 19,
+            "hash": null
+        },
+        {
+            "path": "/src/ETL/LookUps/LookUps.Application/LookUps.Application.csproj",
+            "tokens": 146,
             "hash": null
         },
         {
@@ -1752,6 +1872,11 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/LookUps/LookUps.Domain/LookUps.Domain.csproj",
+            "tokens": 79,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/LookUps/LookUps.Infrastructure/EntityConfigurations/LookUpConfiguration.cs",
             "tokens": 102,
             "hash": null
@@ -1759,6 +1884,11 @@
         {
             "path": "/src/ETL/LookUps/LookUps.Infrastructure/LookUpBootstrap.cs",
             "tokens": 133,
+            "hash": null
+        },
+        {
+            "path": "/src/ETL/LookUps/LookUps.Infrastructure/LookUps.Infrastructure.csproj",
+            "tokens": 189,
             "hash": null
         },
         {
@@ -1779,6 +1909,11 @@
         {
             "path": "/src/ETL/LookUps/LookUps.Infrastructure/Services/ReadDataService.cs",
             "tokens": 212,
+            "hash": null
+        },
+        {
+            "path": "/src/ETL/ProcessEntities/ProcessEntities.Application/ProcessEntities.Application.csproj",
+            "tokens": 126,
             "hash": null
         },
         {
@@ -1827,8 +1962,18 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/ProcessEntities/ProcessEntities.Domain/ProcessEntities.Domain.csproj",
+            "tokens": 79,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/ProcessEntities/ProcessEntities.Infrastructure/EntityConfigurations/ProcessActivityRunningConfiguration.cs",
             "tokens": 84,
+            "hash": null
+        },
+        {
+            "path": "/src/ETL/ProcessEntities/ProcessEntities.Infrastructure/ProcessEntities.Infrastructure.csproj",
+            "tokens": 341,
             "hash": null
         },
         {
@@ -1897,6 +2042,11 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/RestApi/RestApi.Application/RestApi.Application.csproj",
+            "tokens": 166,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/RestApi/RestApi.Application/RestApiApplicationReference.cs",
             "tokens": 19,
             "hash": null
@@ -1929,6 +2079,11 @@
         {
             "path": "/src/ETL/RestApi/RestApi.ConsoleSandbox/Program.cs",
             "tokens": 7858,
+            "hash": null
+        },
+        {
+            "path": "/src/ETL/RestApi/RestApi.ConsoleSandbox/RestApi.ConsoleSandbox.csproj",
+            "tokens": 165,
             "hash": null
         },
         {
@@ -2062,6 +2217,11 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/RestApi/RestApi.Domain/RestApi.Domain.csproj",
+            "tokens": 94,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/RestApi/RestApi.Infrastructure/AuthGet/BasicSetAuth.cs",
             "tokens": 206,
             "hash": null
@@ -2137,6 +2297,11 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/RestApi/RestApi.Infrastructure/RestApi.Infrastructure.csproj",
+            "tokens": 171,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/RestApi/RestApi.Infrastructure/RestApiBootstrap.cs",
             "tokens": 298,
             "hash": null
@@ -2167,6 +2332,11 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/RestApi/RestApi.Test/RestApi.Test.csproj",
+            "tokens": 272,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/RestApi/RestApi.Test/RestApiConnectionTest.cs",
             "tokens": 845,
             "hash": null
@@ -2184,6 +2354,11 @@
         {
             "path": "/src/ETL/SchedulerProcess/ExecuteProcessGroupFixMe.Application/DTO/ProcessGroupDTO.cs",
             "tokens": 54,
+            "hash": null
+        },
+        {
+            "path": "/src/ETL/SchedulerProcess/ExecuteProcessGroupFixMe.Application/ExecuteProcessGroupFixMe.Application.csproj",
+            "tokens": 149,
             "hash": null
         },
         {
@@ -2292,6 +2467,11 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/SchedulerProcess/ST.CPM.Scheduler.API/ST.CPM.Scheduler.API.csproj",
+            "tokens": 347,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/SchedulerProcess/SchedulerProcess.Application/DTO/ProcessGroupDTO.cs",
             "tokens": 146,
             "hash": null
@@ -2334,6 +2514,11 @@
         {
             "path": "/src/ETL/SchedulerProcess/SchedulerProcess.Application/SchedulerApplicationReference.cs",
             "tokens": 12,
+            "hash": null
+        },
+        {
+            "path": "/src/ETL/SchedulerProcess/SchedulerProcess.Application/SchedulerProcess.Application.csproj",
+            "tokens": 262,
             "hash": null
         },
         {
@@ -2512,6 +2697,11 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/SchedulerProcess/SchedulerProcess.Domain/SchedulerProcess.Domain.csproj",
+            "tokens": 107,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/SchedulerProcess/SchedulerProcess.Infrastructure/Context/BaseSchedulerContext.cs",
             "tokens": 463,
             "hash": null
@@ -2574,6 +2764,11 @@
         {
             "path": "/src/ETL/SchedulerProcess/SchedulerProcess.Infrastructure/SchedulerBootstrap.cs",
             "tokens": 541,
+            "hash": null
+        },
+        {
+            "path": "/src/ETL/SchedulerProcess/SchedulerProcess.Infrastructure/SchedulerProcess.Infrastructure.csproj",
+            "tokens": 306,
             "hash": null
         },
         {
@@ -2664,6 +2859,11 @@
         {
             "path": "/src/ETL/Sources/Sources.Application/SourceApplicationReference.cs",
             "tokens": 17,
+            "hash": null
+        },
+        {
+            "path": "/src/ETL/Sources/Sources.Application/Sources.Application.csproj",
+            "tokens": 263,
             "hash": null
         },
         {
@@ -2972,6 +3172,11 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/Sources/Sources.Domain/Sources.Domain.csproj",
+            "tokens": 108,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/Sources/Sources.Infrastructure/EntityConfigurations/SourceConfiguration.cs",
             "tokens": 647,
             "hash": null
@@ -3027,6 +3232,11 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/Sources/Sources.Infrastructure/Sources.Infrastructure.csproj",
+            "tokens": 273,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/TransformFunction/TransformFunction.Application/DTO/Functions/FunctionBodyDTO.cs",
             "tokens": 106,
             "hash": null
@@ -3034,6 +3244,11 @@
         {
             "path": "/src/ETL/TransformFunction/TransformFunction.Application/DTO/Functions/FunctionDTO.cs",
             "tokens": 214,
+            "hash": null
+        },
+        {
+            "path": "/src/ETL/TransformFunction/TransformFunction.Application/TransformFunction.Application.csproj",
+            "tokens": 131,
             "hash": null
         },
         {
@@ -3092,6 +3307,11 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/TransformFunction/TransformFunction.Domain/TransformFunction.Domain.csproj",
+            "tokens": 101,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/TransformFunction/TransformFunction.Infrastructure/EntityConfigurations/FunctionConfiguration.cs",
             "tokens": 113,
             "hash": null
@@ -3104,6 +3324,11 @@
         {
             "path": "/src/ETL/TransformFunction/TransformFunction.Infrastructure/Services/InitEfFunctionDataService.cs",
             "tokens": 3403,
+            "hash": null
+        },
+        {
+            "path": "/src/ETL/TransformFunction/TransformFunction.Infrastructure/TransformFunction.Infrastructure.csproj",
+            "tokens": 189,
             "hash": null
         },
         {
@@ -3157,13 +3382,28 @@
             "hash": null
         },
         {
+            "path": "/src/ETL/WareHouseStructureManipulation/WareHouseStructureManipulation.Application/WareHouseStructureManipulation.Application.csproj",
+            "tokens": 137,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/WareHouseStructureManipulation/WareHouseStructureManipulation.Domain/Interfaces/IWareHouseStructureService.cs",
             "tokens": 165,
             "hash": null
         },
         {
+            "path": "/src/ETL/WareHouseStructureManipulation/WareHouseStructureManipulation.Domain/WareHouseStructureManipulation.Domain.csproj",
+            "tokens": 84,
+            "hash": null
+        },
+        {
             "path": "/src/ETL/WareHouseStructureManipulation/WareHouseStructureManipulation.Infrastructure/WareHouseStructureBootstrap.cs",
             "tokens": 148,
+            "hash": null
+        },
+        {
+            "path": "/src/ETL/WareHouseStructureManipulation/WareHouseStructureManipulation.Infrastructure/WareHouseStructureManipulation.Infrastructure.csproj",
+            "tokens": 140,
             "hash": null
         },
         {
@@ -3189,6 +3429,11 @@
         {
             "path": "/src/Folder/Folder.Application/FolderApplicationReference.cs",
             "tokens": 15,
+            "hash": null
+        },
+        {
+            "path": "/src/Folder/Folder.Application/Folders.Application.csproj",
+            "tokens": 116,
             "hash": null
         },
         {
@@ -3292,6 +3537,11 @@
             "hash": null
         },
         {
+            "path": "/src/Folder/Folder.Domain/Folders.Domain.csproj",
+            "tokens": 118,
+            "hash": null
+        },
+        {
             "path": "/src/Folder/Folder.Domain/FoldersConsts.cs",
             "tokens": 23,
             "hash": null
@@ -3334,6 +3584,11 @@
         {
             "path": "/src/Folder/Folder.Infrastructure/FolderBootstrap.cs",
             "tokens": 206,
+            "hash": null
+        },
+        {
+            "path": "/src/Folder/Folder.Infrastructure/Folders.Infrastructure.csproj",
+            "tokens": 229,
             "hash": null
         },
         {
@@ -3389,6 +3644,11 @@
         {
             "path": "/src/Infrastructure/Entity/FrontendOptionsDTO.cs",
             "tokens": 171,
+            "hash": null
+        },
+        {
+            "path": "/src/Infrastructure/Infrastructure.csproj",
+            "tokens": 1566,
             "hash": null
         },
         {
@@ -4327,6 +4587,11 @@
             "hash": null
         },
         {
+            "path": "/src/Logging/CPM.Logging.Application/CPM.Logging.Application.csproj",
+            "tokens": 117,
+            "hash": null
+        },
+        {
             "path": "/src/Logging/CPM.Logging.Application/LoggingApplicationReference.cs",
             "tokens": 35,
             "hash": null
@@ -4337,8 +4602,18 @@
             "hash": null
         },
         {
+            "path": "/src/Logging/CPM.Logging.AspNetCore/CPM.Logging.AspNetCore.csproj",
+            "tokens": 200,
+            "hash": null
+        },
+        {
             "path": "/src/Logging/CPM.Logging.AspNetCore/CpmLoggingServiceCollectionExtensions.cs",
             "tokens": 855,
+            "hash": null
+        },
+        {
+            "path": "/src/Logging/CPM.Logging.Domain/CPM.Logging.Domain.csproj",
+            "tokens": 69,
             "hash": null
         },
         {
@@ -4362,6 +4637,11 @@
             "hash": null
         },
         {
+            "path": "/src/Logging/CPM.Logging.Infrastructure/CPM.Logging.Infrastructure.csproj",
+            "tokens": 182,
+            "hash": null
+        },
+        {
             "path": "/src/Logging/CPM.Logging.Infrastructure/ClickHouseLogsRepository.cs",
             "tokens": 1325,
             "hash": null
@@ -4379,6 +4659,11 @@
         {
             "path": "/src/Logging/CPM.Logging.Infrastructure/Legacy/PostgresLogRepository.cs",
             "tokens": 450,
+            "hash": null
+        },
+        {
+            "path": "/src/Logging/CPM.Logging/CPM.Logging.csproj",
+            "tokens": 221,
             "hash": null
         },
         {
@@ -4442,6 +4727,11 @@
             "hash": null
         },
         {
+            "path": "/src/Manuals/Manuals.Application/Manuals.Application.csproj",
+            "tokens": 148,
+            "hash": null
+        },
+        {
             "path": "/src/Manuals/Manuals.Application/UseCases/Queries/GetManualQuery.cs",
             "tokens": 237,
             "hash": null
@@ -4452,13 +4742,28 @@
             "hash": null
         },
         {
+            "path": "/src/Manuals/Manuals.Domain/Manuals.Domain.csproj",
+            "tokens": 84,
+            "hash": null
+        },
+        {
             "path": "/src/Manuals/Manuals.Infrastructure/ManualBootstrap.cs",
             "tokens": 143,
             "hash": null
         },
         {
+            "path": "/src/Manuals/Manuals.Infrastructure/Manuals.Infrastructure.csproj",
+            "tokens": 194,
+            "hash": null
+        },
+        {
             "path": "/src/Manuals/Manuals.Infrastructure/Services/ManualPathFile.cs",
             "tokens": 203,
+            "hash": null
+        },
+        {
+            "path": "/src/OLAP/Calculations/Calculations.Application/Calculations.Application.csproj",
+            "tokens": 185,
             "hash": null
         },
         {
@@ -4587,6 +4892,11 @@
             "hash": null
         },
         {
+            "path": "/src/OLAP/Calculations/Calculations.Domain/Calculations.Domain.csproj",
+            "tokens": 126,
+            "hash": null
+        },
+        {
             "path": "/src/OLAP/Calculations/Calculations.Domain/CreateFactoriesParametrs/CreateCalculationParameters.cs",
             "tokens": 194,
             "hash": null
@@ -4609,6 +4919,11 @@
         {
             "path": "/src/OLAP/Calculations/Calculations.Domain/Interfaces/IValidateCalculationOrderService.cs",
             "tokens": 46,
+            "hash": null
+        },
+        {
+            "path": "/src/OLAP/Calculations/Calculations.Infrastructure/Calculations.Infrastructure.csproj",
+            "tokens": 233,
             "hash": null
         },
         {
@@ -4639,6 +4954,11 @@
         {
             "path": "/src/OLAP/Calculations/Calculations.Infrastructure/Services/ValidateCalculationOrderService .cs",
             "tokens": 523,
+            "hash": null
+        },
+        {
+            "path": "/src/OLAP/CubeAccessFilters/CubeAccessFilters.Application/CubeAccessFilters.Application.csproj",
+            "tokens": 172,
             "hash": null
         },
         {
@@ -4707,6 +5027,11 @@
             "hash": null
         },
         {
+            "path": "/src/OLAP/CubeAccessFilters/CubeAccessFilters.Domain/CubeAccessFilters.Domain.csproj",
+            "tokens": 103,
+            "hash": null
+        },
+        {
             "path": "/src/OLAP/CubeAccessFilters/CubeAccessFilters.Domain/Entities/AccessFilterParameter.cs",
             "tokens": 70,
             "hash": null
@@ -4747,6 +5072,11 @@
             "hash": null
         },
         {
+            "path": "/src/OLAP/CubeAccessFilters/CubeAccessFilters.Infrastructure/CubeAccessFilters.Infrastructure.csproj",
+            "tokens": 231,
+            "hash": null
+        },
+        {
             "path": "/src/OLAP/CubeAccessFilters/CubeAccessFilters.Infrastructure/Repositories/AccessFiltersPermissionRepository.cs",
             "tokens": 1355,
             "hash": null
@@ -4754,6 +5084,11 @@
         {
             "path": "/src/OLAP/CubeAccessFilters/CubeAccessFilters.Infrastructure/Repositories/AccessFiltersRepository.cs",
             "tokens": 715,
+            "hash": null
+        },
+        {
+            "path": "/src/OLAP/CubeDataChange/CubeDataChange.Application/CubeDataChange.Application.csproj",
+            "tokens": 200,
             "hash": null
         },
         {
@@ -4822,6 +5157,11 @@
             "hash": null
         },
         {
+            "path": "/src/OLAP/CubeDataChange/CubeDataChange.Domain/CubeDataChange.Domain.csproj",
+            "tokens": 106,
+            "hash": null
+        },
+        {
             "path": "/src/OLAP/CubeDataChange/CubeDataChange.Domain/Entities/Calculators/EquallyMeasureCalculator.cs",
             "tokens": 228,
             "hash": null
@@ -4887,6 +5227,11 @@
             "hash": null
         },
         {
+            "path": "/src/OLAP/CubeDataChange/CubeDataChange.Infrastructure/CubeDataChange.Infrastructure.csproj",
+            "tokens": 280,
+            "hash": null
+        },
+        {
             "path": "/src/OLAP/CubeDataChange/CubeDataChange.Infrastructure/ModifiableDataBootstrap.cs",
             "tokens": 139,
             "hash": null
@@ -4894,6 +5239,11 @@
         {
             "path": "/src/OLAP/CubeDataChange/CubeDataChange.Infrastructure/Repositories/ModifiableDataEfRepository.cs",
             "tokens": 585,
+            "hash": null
+        },
+        {
+            "path": "/src/OLAP/Cubes/Cube.Application/Cubes.Application.csproj",
+            "tokens": 308,
             "hash": null
         },
         {
@@ -4999,6 +5349,11 @@
         {
             "path": "/src/OLAP/Cubes/Cube.Domain/CreateFactoriesParametrs/CreateSliceParameters.cs",
             "tokens": 126,
+            "hash": null
+        },
+        {
+            "path": "/src/OLAP/Cubes/Cube.Domain/Cubes.Domain.csproj",
+            "tokens": 254,
             "hash": null
         },
         {
@@ -5119,6 +5474,11 @@
         {
             "path": "/src/OLAP/Cubes/Cube.Domain/Serivces/SlicesForCalculationService.cs",
             "tokens": 1532,
+            "hash": null
+        },
+        {
+            "path": "/src/OLAP/Cubes/Cube.Infrastrucure/Cubes.Infrastrucure.csproj",
+            "tokens": 361,
             "hash": null
         },
         {
@@ -5292,6 +5652,11 @@
             "hash": null
         },
         {
+            "path": "/src/OLAP/DimensionFilters/DimensionFilters.Application/DimensionFilters.Application.csproj",
+            "tokens": 125,
+            "hash": null
+        },
+        {
             "path": "/src/OLAP/DimensionFilters/DimensionFilters.Application/DimensionFiltersApplicationReference.cs",
             "tokens": 16,
             "hash": null
@@ -5299,6 +5664,11 @@
         {
             "path": "/src/OLAP/DimensionFilters/DimensionFilters.Application/UseCases/Queries/GetFilterReglamentsQuery.cs",
             "tokens": 136,
+            "hash": null
+        },
+        {
+            "path": "/src/OLAP/DimensionFilters/DimensionFilters.Domain/DimensionFilters.Domain.csproj",
+            "tokens": 79,
             "hash": null
         },
         {
@@ -5482,6 +5852,11 @@
             "hash": null
         },
         {
+            "path": "/src/OLAP/DimensionFilters/DimensionFilters.Infrastructure/DimensionFilters.Infrastructure.csproj",
+            "tokens": 114,
+            "hash": null
+        },
+        {
             "path": "/src/OLAP/DimensionFilters/DimensionFilters.Infrastructure/DimensionFiltersBootstrap.cs",
             "tokens": 84,
             "hash": null
@@ -5489,6 +5864,11 @@
         {
             "path": "/src/OLAP/DimensionFilters/DimensionFilters.Tests/DimensionCurrentFiltersTest.cs",
             "tokens": 747,
+            "hash": null
+        },
+        {
+            "path": "/src/OLAP/DimensionFilters/DimensionFilters.Tests/DimensionFilters.Tests.csproj",
+            "tokens": 214,
             "hash": null
         },
         {
@@ -5587,6 +5967,11 @@
             "hash": null
         },
         {
+            "path": "/src/OLAP/Dimensions/Dimensions.Application/Dimensions.Application.csproj",
+            "tokens": 151,
+            "hash": null
+        },
+        {
             "path": "/src/OLAP/Dimensions/Dimensions.Application/DimensionsApplicationReference.cs",
             "tokens": 14,
             "hash": null
@@ -5674,6 +6059,11 @@
         {
             "path": "/src/OLAP/Dimensions/Dimensions.Application/UseCases/Dimensions/Queries/GetDimensionsWithoutSchemeQuery.cs",
             "tokens": 199,
+            "hash": null
+        },
+        {
+            "path": "/src/OLAP/Dimensions/Dimensions.Domain/Dimensions.Domain.csproj",
+            "tokens": 114,
             "hash": null
         },
         {
@@ -5807,6 +6197,11 @@
             "hash": null
         },
         {
+            "path": "/src/OLAP/Dimensions/Dimensions.Infrastructure/Dimensions.Infrastructure.csproj",
+            "tokens": 304,
+            "hash": null
+        },
+        {
             "path": "/src/OLAP/Dimensions/Dimensions.Infrastructure/DimensionsBootstrap.cs",
             "tokens": 374,
             "hash": null
@@ -5922,6 +6317,11 @@
             "hash": null
         },
         {
+            "path": "/src/OLAP/Dimensions/Dimensions.Tests/Dimensions.Tests.csproj",
+            "tokens": 147,
+            "hash": null
+        },
+        {
             "path": "/src/OLAP/Dimensions/Dimensions.Tests/Mock/DimensionRepositoryMock.cs",
             "tokens": 215,
             "hash": null
@@ -6012,6 +6412,11 @@
             "hash": null
         },
         {
+            "path": "/src/OLAP/OLAP.Tests/OLAP.Tests.csproj",
+            "tokens": 286,
+            "hash": null
+        },
+        {
             "path": "/src/OLAP/OLAP.Tests/SlicesFactory/SlicesFactoryTest.cs",
             "tokens": 500,
             "hash": null
@@ -6039,6 +6444,11 @@
         {
             "path": "/src/OLAP/OLAP.Tests/SqlStringExtension.cs",
             "tokens": 99,
+            "hash": null
+        },
+        {
+            "path": "/src/OLAP/OLAPMappings/OLAPMapping.Infrastructure/OLAPMapping.Infrastructure.csproj",
+            "tokens": 127,
             "hash": null
         },
         {
@@ -6102,6 +6512,11 @@
             "hash": null
         },
         {
+            "path": "/src/OLAP/OLAPMappings/OLAPMappings.Domain/OLAPMappings.Domain.csproj",
+            "tokens": 89,
+            "hash": null
+        },
+        {
             "path": "/src/Projects/Projects.Application/DTO/ProjectDTO.cs",
             "tokens": 63,
             "hash": null
@@ -6109,6 +6524,11 @@
         {
             "path": "/src/Projects/Projects.Application/ProjectApplicationReference.cs",
             "tokens": 12,
+            "hash": null
+        },
+        {
+            "path": "/src/Projects/Projects.Application/Projects.Application.csproj",
+            "tokens": 128,
             "hash": null
         },
         {
@@ -6132,6 +6552,11 @@
             "hash": null
         },
         {
+            "path": "/src/Projects/Projects.Domain/Projects.Domain.csproj",
+            "tokens": 78,
+            "hash": null
+        },
+        {
             "path": "/src/Projects/Projects.Infrastructure/EntityConfigurations/ProjectConfiguration.cs",
             "tokens": 77,
             "hash": null
@@ -6139,6 +6564,11 @@
         {
             "path": "/src/Projects/Projects.Infrastructure/ProjectBootstrp.cs",
             "tokens": 197,
+            "hash": null
+        },
+        {
+            "path": "/src/Projects/Projects.Infrastructure/Projects.Infrastructure.csproj",
+            "tokens": 199,
             "hash": null
         },
         {
@@ -6487,8 +6917,18 @@
             "hash": null
         },
         {
+            "path": "/src/ST.CPM/ST.CPM.Api/ST.CPM.Api.csproj",
+            "tokens": 1374,
+            "hash": null
+        },
+        {
             "path": "/src/ST.CPM/ST.CPM.Api/Startup.cs",
             "tokens": 1260,
+            "hash": null
+        },
+        {
+            "path": "/src/Search/Search.Application/Search.Application.csproj",
+            "tokens": 126,
             "hash": null
         },
         {
@@ -6522,8 +6962,18 @@
             "hash": null
         },
         {
+            "path": "/src/Search/Search.Domain/Search.Domain.csproj",
+            "tokens": 54,
+            "hash": null
+        },
+        {
             "path": "/src/Search/Search.Infrastructure/Repositories/SearchRepository.cs",
             "tokens": 1377,
+            "hash": null
+        },
+        {
+            "path": "/src/Search/Search.Infrastructure/Search.Infrastructure.csproj",
+            "tokens": 223,
             "hash": null
         },
         {
@@ -6619,6 +7069,11 @@
         {
             "path": "/src/Security/Security.Application/Presentation/UserPresentation.cs",
             "tokens": 730,
+            "hash": null
+        },
+        {
+            "path": "/src/Security/Security.Application/Security.Application.csproj",
+            "tokens": 154,
             "hash": null
         },
         {
@@ -6967,6 +7422,11 @@
             "hash": null
         },
         {
+            "path": "/src/Security/Security.Domain/Security.Domain.csproj",
+            "tokens": 472,
+            "hash": null
+        },
+        {
             "path": "/src/Security/Security.Domain/SecurityEntities/AccessFilterSecurityEntity.cs",
             "tokens": 33,
             "hash": null
@@ -7127,6 +7587,11 @@
             "hash": null
         },
         {
+            "path": "/src/Security/Security.Infrastructure/Security.Infrastructure.csproj",
+            "tokens": 233,
+            "hash": null
+        },
+        {
             "path": "/src/Security/Security.Infrastructure/SecurityBootstrap.cs",
             "tokens": 446,
             "hash": null
@@ -7197,6 +7662,11 @@
             "hash": null
         },
         {
+            "path": "/src/Security/Security.Tests/Security.Tests.csproj",
+            "tokens": 324,
+            "hash": null
+        },
+        {
             "path": "/src/Security/Security.Tests/TestDataIds.cs",
             "tokens": 1074,
             "hash": null
@@ -7209,6 +7679,11 @@
         {
             "path": "/src/ShareLinks/ShareLinks.Application/Interfaces/IShareVerify.cs",
             "tokens": 31,
+            "hash": null
+        },
+        {
+            "path": "/src/ShareLinks/ShareLinks.Application/ShareLinks.Application.csproj",
+            "tokens": 96,
             "hash": null
         },
         {
@@ -7242,6 +7717,11 @@
             "hash": null
         },
         {
+            "path": "/src/ShareLinks/ShareLinks.Domain/ShareLinks.Domain.csproj",
+            "tokens": 81,
+            "hash": null
+        },
+        {
             "path": "/src/ShareLinks/ShareLinks.Infrastructure/EntityConfigurations/ShareLinkConfiguration.cs",
             "tokens": 93,
             "hash": null
@@ -7272,8 +7752,18 @@
             "hash": null
         },
         {
+            "path": "/src/ShareLinks/ShareLinks.Infrastructure/ShareLinks.Infrastructure.csproj",
+            "tokens": 187,
+            "hash": null
+        },
+        {
             "path": "/src/ShareLinks/ShareLinks.Infrastructure/ShareLinksBootstrap.cs",
             "tokens": 172,
+            "hash": null
+        },
+        {
+            "path": "/src/Visualization/Charts/Charts.Application/Charts.Application.csproj",
+            "tokens": 206,
             "hash": null
         },
         {
@@ -7354,6 +7844,11 @@
         {
             "path": "/src/Visualization/Charts/Charts.Application/UseCases/Queries/GetPresentationChartForSliceQuery.cs",
             "tokens": 508,
+            "hash": null
+        },
+        {
+            "path": "/src/Visualization/Charts/Charts.Domain/Charts.Domain.csproj",
+            "tokens": 89,
             "hash": null
         },
         {
@@ -7467,6 +7962,11 @@
             "hash": null
         },
         {
+            "path": "/src/Visualization/Charts/Charts.Infrastructure/Charts.Infrastructure.csproj",
+            "tokens": 185,
+            "hash": null
+        },
+        {
             "path": "/src/Visualization/Charts/Charts.Infrastructure/ChartsBootstrap.cs",
             "tokens": 175,
             "hash": null
@@ -7509,6 +8009,11 @@
         {
             "path": "/src/Visualization/Charts/Charts.Infrastructure/Repositories/ChartEfRepository.cs",
             "tokens": 315,
+            "hash": null
+        },
+        {
+            "path": "/src/Visualization/CrossTables/CrossTables.Application/CrossTables.Application.csproj",
+            "tokens": 287,
             "hash": null
         },
         {
@@ -7657,6 +8162,11 @@
             "hash": null
         },
         {
+            "path": "/src/Visualization/CrossTables/CrossTables.Domain/CrossTables.Domain.csproj",
+            "tokens": 133,
+            "hash": null
+        },
+        {
             "path": "/src/Visualization/CrossTables/CrossTables.Domain/Entities/AxisItem.cs",
             "tokens": 304,
             "hash": null
@@ -7797,6 +8307,11 @@
             "hash": null
         },
         {
+            "path": "/src/Visualization/CrossTables/CrossTables.Infrastructure/CrossTables.Infrastructure.csproj",
+            "tokens": 210,
+            "hash": null
+        },
+        {
             "path": "/src/Visualization/CrossTables/CrossTables.Infrastructure/CrossTablesBootstrap.cs",
             "tokens": 281,
             "hash": null
@@ -7827,6 +8342,11 @@
             "hash": null
         },
         {
+            "path": "/src/Visualization/CrossTables/CrossTables.Tests/CrossTables.Tests.csproj",
+            "tokens": 238,
+            "hash": null
+        },
+        {
             "path": "/src/Visualization/CrossTables/CrossTables.Tests/RoindingWithThemeSettingsTests.cs",
             "tokens": 3018,
             "hash": null
@@ -7844,6 +8364,11 @@
         {
             "path": "/src/Visualization/DashboardGroups/DashboardGroups.Application/DTO/DashboardGroupDTO.cs",
             "tokens": 211,
+            "hash": null
+        },
+        {
+            "path": "/src/Visualization/DashboardGroups/DashboardGroups.Application/DashboardGroups.Application.csproj",
+            "tokens": 148,
             "hash": null
         },
         {
@@ -7877,6 +8402,11 @@
             "hash": null
         },
         {
+            "path": "/src/Visualization/DashboardGroups/DashboardGroups.Domain/DashboardGroups.Domain.csproj",
+            "tokens": 59,
+            "hash": null
+        },
+        {
             "path": "/src/Visualization/DashboardGroups/DashboardGroups.Domain/Entities/Dashboard.cs",
             "tokens": 157,
             "hash": null
@@ -7902,6 +8432,11 @@
             "hash": null
         },
         {
+            "path": "/src/Visualization/DashboardGroups/DashboardGroups.Infrastucture/DashboardGroups.Infrastucture.csproj",
+            "tokens": 190,
+            "hash": null
+        },
+        {
             "path": "/src/Visualization/DashboardGroups/DashboardGroups.Infrastucture/EntityConfigurations/DashboardGroupConfiguration.cs",
             "tokens": 279,
             "hash": null
@@ -7914,6 +8449,11 @@
         {
             "path": "/src/Visualization/DashboardGroups/DashboardGroups.Infrastucture/Repositories/DashboardGroupEfRepository.cs",
             "tokens": 436,
+            "hash": null
+        },
+        {
+            "path": "/src/Visualization/Dashboards/Dashboard.Domain/Dashboards.Domain.csproj",
+            "tokens": 110,
             "hash": null
         },
         {
@@ -8167,6 +8707,11 @@
             "hash": null
         },
         {
+            "path": "/src/Visualization/Dashboards/Dashboards.Application/Dashboards.Application.csproj",
+            "tokens": 343,
+            "hash": null
+        },
+        {
             "path": "/src/Visualization/Dashboards/Dashboards.Application/DashboardsApplicationReference.cs",
             "tokens": 16,
             "hash": null
@@ -8292,6 +8837,11 @@
             "hash": null
         },
         {
+            "path": "/src/Visualization/Dashboards/Dashboards.Infrastructure/Dashboards.Infrastructure.csproj",
+            "tokens": 410,
+            "hash": null
+        },
+        {
             "path": "/src/Visualization/Dashboards/Dashboards.Infrastructure/DashboardsBootstrap.cs",
             "tokens": 186,
             "hash": null
@@ -8344,6 +8894,11 @@
         {
             "path": "/src/Visualization/Dashboards/Dashboards.Tests/ContentFactoryTests.cs",
             "tokens": 541,
+            "hash": null
+        },
+        {
+            "path": "/src/Visualization/Dashboards/Dashboards.Tests/Dashboards.Tests.csproj",
+            "tokens": 260,
             "hash": null
         },
         {
@@ -8417,6 +8972,11 @@
             "hash": null
         },
         {
+            "path": "/src/Visualization/DimensionWidgets/DimensionWidgets.Application/DimensionAttributesWidgets.Application.csproj",
+            "tokens": 191,
+            "hash": null
+        },
+        {
             "path": "/src/Visualization/DimensionWidgets/DimensionWidgets.Application/Extensions/ApplicationExceptionExtensions.cs",
             "tokens": 567,
             "hash": null
@@ -8459,6 +9019,11 @@
         {
             "path": "/src/Visualization/DimensionWidgets/DimensionWidgets.Domain/CreateFactoriesParametrs/CreateDimensionAttributesParameter.cs",
             "tokens": 95,
+            "hash": null
+        },
+        {
+            "path": "/src/Visualization/DimensionWidgets/DimensionWidgets.Domain/DimensionAttributesWidgets.Domain.csproj",
+            "tokens": 164,
             "hash": null
         },
         {
@@ -8507,6 +9072,11 @@
             "hash": null
         },
         {
+            "path": "/src/Visualization/DimensionWidgets/DimensionWidgets.Infrastructure/DimensionAttributesWidgets.Infrastructure.csproj",
+            "tokens": 179,
+            "hash": null
+        },
+        {
             "path": "/src/Visualization/DimensionWidgets/DimensionWidgets.Infrastructure/EntityConfigurations/DimensionAttributesWidgetsConfiguration.cs",
             "tokens": 175,
             "hash": null
@@ -8529,6 +9099,11 @@
         {
             "path": "/src/Visualization/DimensionWidgets/DimensionWidgets.Infrastructure/Repositories/DimensionRepositoryFacade.cs",
             "tokens": 110,
+            "hash": null
+        },
+        {
+            "path": "/src/Visualization/Documents/Documenst.Domain/Documents.Domain.csproj",
+            "tokens": 121,
             "hash": null
         },
         {
@@ -8632,6 +9207,11 @@
             "hash": null
         },
         {
+            "path": "/src/Visualization/Documents/Documents.Application/Documents.Application.csproj",
+            "tokens": 173,
+            "hash": null
+        },
+        {
             "path": "/src/Visualization/Documents/Documents.Application/DocumentsApplicationReference.cs",
             "tokens": 14,
             "hash": null
@@ -8664,6 +9244,11 @@
         {
             "path": "/src/Visualization/Documents/Documents.Application/UseCase/Query/GetByIdDocumentTemplateQuery.cs",
             "tokens": 174,
+            "hash": null
+        },
+        {
+            "path": "/src/Visualization/Documents/Documents.Infrastructure/Documents.Infrastructure.csproj",
+            "tokens": 187,
             "hash": null
         },
         {
@@ -8702,6 +9287,11 @@
             "hash": null
         },
         {
+            "path": "/src/Visualization/Documents/Documents.Test/Documents.Test.csproj",
+            "tokens": 408,
+            "hash": null
+        },
+        {
             "path": "/src/Visualization/Documents/Documents.Test/TransformDocumentToInsertDataServiceTest.cs",
             "tokens": 1494,
             "hash": null
@@ -8719,6 +9309,11 @@
         {
             "path": "/src/Visualization/FlatCubeTables/FlatCubTables.Infrastructure/EntityConfigurations/FlatCubeTableConfiguration.cs",
             "tokens": 187,
+            "hash": null
+        },
+        {
+            "path": "/src/Visualization/FlatCubeTables/FlatCubTables.Infrastructure/FlatCubeTables.Infrastructure.csproj",
+            "tokens": 202,
             "hash": null
         },
         {
@@ -8802,6 +9397,11 @@
             "hash": null
         },
         {
+            "path": "/src/Visualization/FlatCubeTables/FlatCubeTables.Application/FlatCubeTables.Application.csproj",
+            "tokens": 125,
+            "hash": null
+        },
+        {
             "path": "/src/Visualization/FlatCubeTables/FlatCubeTables.Application/FlatCubeTablesApplicationReference.cs",
             "tokens": 18,
             "hash": null
@@ -8867,6 +9467,11 @@
             "hash": null
         },
         {
+            "path": "/src/Visualization/FlatCubeTables/FlatCubeTables.Domain/FlatCubeTables.Domain.csproj",
+            "tokens": 128,
+            "hash": null
+        },
+        {
             "path": "/src/Visualization/FlatCubeTables/FlatCubeTables.Domain/Interfaces/IFlatCubeTableFactory.cs",
             "tokens": 59,
             "hash": null
@@ -8919,6 +9524,11 @@
         {
             "path": "/src/Visualization/NumericIndicators/NumericIndicators.Application/Interfaces/ISliceRepositoryFacade.cs",
             "tokens": 84,
+            "hash": null
+        },
+        {
+            "path": "/src/Visualization/NumericIndicators/NumericIndicators.Application/NumericIndicators.Application.csproj",
+            "tokens": 177,
             "hash": null
         },
         {
@@ -9007,6 +9617,11 @@
             "hash": null
         },
         {
+            "path": "/src/Visualization/NumericIndicators/NumericIndicators.Domain/NumericIndicators.Domain.csproj",
+            "tokens": 132,
+            "hash": null
+        },
+        {
             "path": "/src/Visualization/NumericIndicators/NumericIndicators.Infrastructure/EntityConfigurations/NumericalIndicatortConfiguration.cs",
             "tokens": 197,
             "hash": null
@@ -9014,6 +9629,11 @@
         {
             "path": "/src/Visualization/NumericIndicators/NumericIndicators.Infrastructure/Facades/SliceRepositoryFacade.cs",
             "tokens": 416,
+            "hash": null
+        },
+        {
+            "path": "/src/Visualization/NumericIndicators/NumericIndicators.Infrastructure/NumericIndicators.Infrastructure.csproj",
+            "tokens": 154,
             "hash": null
         },
         {
@@ -9049,6 +9669,11 @@
         {
             "path": "/src/Visualization/OneDimensionWidget/OneDimensionWidget.Application/DTO/OneDimensionWidgetDTO.cs",
             "tokens": 246,
+            "hash": null
+        },
+        {
+            "path": "/src/Visualization/OneDimensionWidget/OneDimensionWidget.Application/OneDimensionWidgets.Application.csproj",
+            "tokens": 224,
             "hash": null
         },
         {
@@ -9122,8 +9747,18 @@
             "hash": null
         },
         {
+            "path": "/src/Visualization/OneDimensionWidget/OneDimensionWidget.Domain/OneDimensionWidgets.Domain.csproj",
+            "tokens": 143,
+            "hash": null
+        },
+        {
             "path": "/src/Visualization/OneDimensionWidgets/OneDimensionWidgets.Infrastructure/EntityConfigurations/OneDimensionWidgetConfiguration.cs",
             "tokens": 215,
+            "hash": null
+        },
+        {
+            "path": "/src/Visualization/OneDimensionWidgets/OneDimensionWidgets.Infrastructure/OneDimensionWidgets.Infrastructure.csproj",
+            "tokens": 234,
             "hash": null
         },
         {
@@ -9154,6 +9789,11 @@
         {
             "path": "/src/Visualization/SimpleWidget/SimpleWidget.Application/DTO/TextWidgetDTO.cs",
             "tokens": 149,
+            "hash": null
+        },
+        {
+            "path": "/src/Visualization/SimpleWidget/SimpleWidget.Application/SimpleWidgets.Application.csproj",
+            "tokens": 106,
             "hash": null
         },
         {
@@ -9227,6 +9867,11 @@
             "hash": null
         },
         {
+            "path": "/src/Visualization/SimpleWidget/SimpleWidget.Domain/SimpleWidgets.Domain.csproj",
+            "tokens": 59,
+            "hash": null
+        },
+        {
             "path": "/src/Visualization/SimpleWidget/SimpleWidget.Infarastructure/EntityConfigurations/LinkingWidgetConfiguration.cs",
             "tokens": 140,
             "hash": null
@@ -9249,6 +9894,11 @@
         {
             "path": "/src/Visualization/SimpleWidget/SimpleWidget.Infarastructure/SimpleWidgetBootstrap.cs",
             "tokens": 186,
+            "hash": null
+        },
+        {
+            "path": "/src/Visualization/SimpleWidget/SimpleWidget.Infarastructure/SimpleWidgets.Infarastructure.csproj",
+            "tokens": 151,
             "hash": null
         },
         {
@@ -9284,6 +9934,11 @@
         {
             "path": "/src/Visualization/ThemeSettings/ThemeSettings.Application/DTO/ThemeSettingDTO.cs",
             "tokens": 163,
+            "hash": null
+        },
+        {
+            "path": "/src/Visualization/ThemeSettings/ThemeSettings.Application/ThemeSettings.Application.csproj",
+            "tokens": 128,
             "hash": null
         },
         {
@@ -9372,6 +10027,11 @@
             "hash": null
         },
         {
+            "path": "/src/Visualization/ThemeSettings/ThemeSettings.Domain/ThemeSettings.Domain.csproj",
+            "tokens": 85,
+            "hash": null
+        },
+        {
             "path": "/src/Visualization/ThemeSettings/ThemeSettings.Infrastructure/Configurations/ThemeSettingConfiguration.cs",
             "tokens": 141,
             "hash": null
@@ -9382,8 +10042,18 @@
             "hash": null
         },
         {
+            "path": "/src/Visualization/ThemeSettings/ThemeSettings.Infrastructure/ThemeSettings.Infrastructure.csproj",
+            "tokens": 350,
+            "hash": null
+        },
+        {
             "path": "/src/Visualization/ThemeSettings/ThemeSettings.Infrastructure/ThemeSettingsBootstrap.cs",
             "tokens": 133,
+            "hash": null
+        },
+        {
+            "path": "/tests/CPM.Connection.Tests/CPM.Connection.Tests.csproj",
+            "tokens": 321,
             "hash": null
         },
         {
@@ -9482,6 +10152,11 @@
             "hash": null
         },
         {
+            "path": "/tests/CPM.FolderSystem.Tests/CPM.FolderSystem.Tests.csproj",
+            "tokens": 300,
+            "hash": null
+        },
+        {
             "path": "/tests/CPM.FolderSystem.Tests/Factory/CpmFoldersWebApplicationFactory.cs",
             "tokens": 141,
             "hash": null
@@ -9567,6 +10242,11 @@
             "hash": null
         },
         {
+            "path": "/tests/CPM.Olap.Tests/CPM.Olap.Tests.csproj",
+            "tokens": 569,
+            "hash": null
+        },
+        {
             "path": "/tests/CPM.Olap.Tests/HierarchyFilterTests/HierarchicalResult.cs",
             "tokens": 89,
             "hash": null
@@ -9579,6 +10259,11 @@
         {
             "path": "/tests/CPM.Olap.Tests/Usings.cs",
             "tokens": 4,
+            "hash": null
+        },
+        {
+            "path": "/tests/CPM.Sources.Tests/CPM.Sources.Tests.csproj",
+            "tokens": 346,
             "hash": null
         },
         {
@@ -9604,6 +10289,11 @@
         {
             "path": "/tests/CPM.Sources.Tests/Usings.cs",
             "tokens": 4,
+            "hash": null
+        },
+        {
+            "path": "/tests/CPM.TestInfrastructure.Tests/CPM.TestInfrastructure.Tests.csproj",
+            "tokens": 390,
             "hash": null
         },
         {
@@ -9649,6 +10339,11 @@
         {
             "path": "/tests/CPM.Tests/ApiTests/FrontendOptionsServiceTests.cs",
             "tokens": 246,
+            "hash": null
+        },
+        {
+            "path": "/tests/CPM.Tests/CPM.Tests.csproj",
+            "tokens": 340,
             "hash": null
         },
         {
@@ -9732,6 +10427,11 @@
             "hash": null
         },
         {
+            "path": "/tests/TestInfrastructure/CPM.TestInfrastructure.Containers/CPM.TestInfrastructure.Containers.csproj",
+            "tokens": 110,
+            "hash": null
+        },
+        {
             "path": "/tests/TestInfrastructure/CPM.TestInfrastructure.Containers/ContainerOptions/ClickHouseContainerOptions.cs",
             "tokens": 409,
             "hash": null
@@ -9757,6 +10457,11 @@
             "hash": null
         },
         {
+            "path": "/tests/TestInfrastructure/CPM.TestInfrastructure.FakeAPI/CPM.TestInfrastructure.FakeAPI.csproj",
+            "tokens": 57,
+            "hash": null
+        },
+        {
             "path": "/tests/TestInfrastructure/CPM.TestInfrastructure.FakeAPI/Program.cs",
             "tokens": 83,
             "hash": null
@@ -9769,6 +10474,11 @@
         {
             "path": "/tests/TestInfrastructure/CPM.TestInfrastructure/Abstractions/ISeedEntity.cs",
             "tokens": 153,
+            "hash": null
+        },
+        {
+            "path": "/tests/TestInfrastructure/CPM.TestInfrastructure/CPM.TestInfrastructure.csproj",
+            "tokens": 301,
             "hash": null
         },
         {

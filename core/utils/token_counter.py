@@ -6,21 +6,74 @@ from core.azure.repos import get_repo_files, get_file_content
 from core.logging.logger import log
 
 WHITE_EXTENSIONS = {
-    # Back-end
-    ".py", ".java", ".cs", ".c", ".h", ".cpp", ".hpp", ".go", ".php", ".rb", ".rs", ".kt", ".scala",
-    # Node.js (server)
-    ".js", ".mjs", ".cjs", ".ts",
-    # Frontend (Web)
-    ".html", ".css", ".scss", ".sass", ".jsx", ".tsx", ".vue", ".svelte",
-    # iOS
-    ".swift",  # Swift
-    ".m",      # Objective-C
-    ".mm",     # Objective-C++
-    # Android (Java/Kotlin уже выше)
-    # Кроссплатформенные
-    ".dart",   # Flutter
-}
+    # Back-end (Бэкенд)
+    ".py",  # Python
+    ".java",  # Java
+    ".cs",  # C#
+    ".c",  # C
+    ".h",  # C Header Files
+    ".cpp",  # C++
+    ".hpp",  # C++ Header Files
+    ".php",  # PHP
+    ".kt",  # Kotlin
+    
+    # Frontend (Фронтенд)
+    ".html",  # HTML
+    ".css",  # CSS
+    ".scss",  # SASS/SCSS
+    ".sass",  # SASS
+    ".jsx",  # React JSX
+    ".tsx",  # TypeScript + JSX
+    ".vue",  # Vue.js Single File Components
+    ".svelte",  # Svelte Components
+    ".ts",  # TypeScript (for Angular)
+    
+    # Styles (Стили)
+    ".css",  # CSS
+    ".scss",  # SASS/SCSS
+    ".sass",  # SASS
+    ".less",  # LESS
+    
+    # Scripts (Скрипты)
+    ".js",  # JavaScript
+    ".mjs",  # ES Module JavaScript
+    ".cjs",  # CommonJS JavaScript
+    
+    # PLC (Программируемые логические контроллеры)
+    ".CHK",  # PLC Program Check Files
+    ".PRG",  # PLC Program Files
+    ".pro",  # PLC Project Files
+    ".SDB",  # PLC Database Files
+    ".SYM",  # Symbol Files
+    ".wibu.ini",  # Wibu-Systems License Configuration
+    ".ci",  # Code Interface Files
+    ".ECI",  # Extended Code Interface Files
+    ".ri",  # Resource Interface Files
 
+    # General Embedded System Files (Общие файлы встраиваемых систем)
+    ".library",  # Library Files
+    ".export",  # Exported Files
+    ".ecp",  # Embedded Control Project Files
+    ".project",  # Project Files
+    
+    # Mobile Development (Мобильная Разработка)
+    ".swift",  # Swift for iOS
+    ".m",  # Objective-C for iOS
+    ".mm",  # Objective-C++ for iOS
+    ".kt",  # Kotlin for Android (already included in backend section)
+    ".java",  # Java for Android (already included in backend section)
+    ".dart",  # Flutter for Cross-Platform Mobile Development
+    
+    # Test Files (Тестовые файлы)
+    ".test.js", ".spec.js",  # JavaScript Tests
+    ".test.ts", ".spec.ts",  # TypeScript Tests
+    ".java",  # Java Tests (JUnit)
+    ".py",  # Python Tests (unittest, pytest)
+    ".kt",  # Kotlin Tests
+    
+    # Configuration Files (Конфигурационные файлы)
+    ".csproj",  # C# Project File
+}
 def count_tokens_in_repo(project_name, repository_name):
     """
     Подсчитывает количество токенов ТОЛЬКО в файлах, чьи расширения содержатся в WHITE_EXTENSIONS.

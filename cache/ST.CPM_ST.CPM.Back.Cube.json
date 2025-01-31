@@ -1,9 +1,14 @@
 {
-    "total_tokens": 3696,
+    "total_tokens": 3905,
     "files": [
         {
             "path": "/src/Cube.Domain/BaseEntity.cs",
             "tokens": 65,
+            "hash": null
+        },
+        {
+            "path": "/src/Cube.Domain/Cube.Domain.csproj",
+            "tokens": 46,
             "hash": null
         },
         {
@@ -94,6 +99,11 @@
         {
             "path": "/test/Test.Domain/QueryBuilderTest.cs",
             "tokens": 293,
+            "hash": null
+        },
+        {
+            "path": "/test/Test.Domain/Test.Domain.csproj",
+            "tokens": 163,
             "hash": null
         }
     ]
