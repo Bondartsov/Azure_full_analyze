@@ -1,8 +1,28 @@
+# main.py
 from core.utils.common import select_project, select_repositories
 from core.analyze.repository_analysis import analyze_repository
 from core.analyze.batch_analysis import analyze_all_repositories
 from core.logging.logger import log
 from core.utils.cache import clear_project_summary_cache, clear_cache_for_repo
+
+def choose_analysis_mode() -> str:
+    """
+    Запрашивает выбор типа анализа:
+      1. Быстрый анализ
+      2. Глубокий ИИ анализ (быстрый + вызов ИИ)
+    Возвращает "fast" или "deep".
+    """
+    while True:
+        print("\nВыберите тип анализа:")
+        print("1. Быстрый анализ")
+        print("2. Глубокий ИИ анализ")
+        choice = input("Введите 1 или 2: ").strip()
+        if choice == "1":
+            return "fast"
+        elif choice == "2":
+            return "deep"
+        else:
+            print("Неверный выбор, попробуйте снова.")
 
 def main():
     log("🚀 Запуск приложения...")
@@ -23,9 +43,13 @@ def main():
         print("❌ Репозитории не выбраны. Завершение работы.", flush=True)
         return
 
-    # 3a. Если выбраны ВСЕ репозитории:
+    # 3. Выбор типа анализа
+    analysis_mode = choose_analysis_mode()
+    print(f"\nВыбран тип анализа: {'Глубокий ИИ анализ' if analysis_mode == 'deep' else 'Быстрый анализ'}\n", flush=True)
+
+    # 4. Запуск анализа
+    # 4a. Если выбраны ВСЕ репозитории:
     if repositories:
-        # Предложение очистить кэш всего проекта
         print(f"\nОчистить кэш проекта {project_name}?")
         print("1. Да")
         print("2. Нет")
@@ -37,12 +61,11 @@ def main():
             print(f"🗑️ Кэш очищен для проекта: {project_name}\n")
 
         print(f"[DEBUG] Старт анализа, выбран проект: {project_name}, Кол-во репозиториев: {len(repositories)}", flush=True)
-        analyze_all_repositories(project_name, repositories)
+        analyze_all_repositories(project_name, repositories, analysis_mode)
 
-    # 3b. Если выбран ОДИН репозиторий:
+    # 4b. Если выбран ОДИН репозиторий:
     else:
         repo_name = single_repository.name
-        # Предложение очистить кэш одного репозитория
         print(f"\nОчистить кэш репозитория {repo_name}?")
         print("1. Да")
         print("2. Нет")
@@ -54,13 +77,11 @@ def main():
             print(f"🗑️ Кэш очищен для репозитория: {repo_name}\n")
 
         print(f"[DEBUG] Старт анализа одного репозитория: {repo_name}", flush=True)
-        analyze_repository(project_name, single_repository, repo_changed=True)  
-        # ↑ Если в твоём коде не используется 3-й аргумент, удали его
+        # При одиночном анализе также передаём тип анализа
+        analyze_repository(project_name, single_repository, repo_changed=True, analysis_mode=analysis_mode)
 
-    # По окончании
     print(f"🎉 Анализ завершён для {project_name}", flush=True)
     log(f"🎉 Анализ завершён для {project_name}")
-
 
 if __name__ == "__main__":
     main()
