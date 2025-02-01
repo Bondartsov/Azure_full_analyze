@@ -1,125 +1,65 @@
-import os
-from core.azure.connection import connect_to_azure
-from core.azure.projects import get_projects
-from core.azure.repos import get_repositories
-from core.azure.repo_commits import get_all_commits, get_last_commit
-from core.analyze.commit_analysis import analyze_commits
-from core.reports.generate import generate_report
-from core.reports.summary import generate_summary  # Модуль для сводного отчёта
-from core.utils.cache import is_repo_changed  # Модуль для кэширования
-from core.utils.common import choose_from_list
+from core.utils.common import select_project, select_repositories
+from core.analyze.repository_analysis import analyze_repository
+from core.analyze.batch_analysis import analyze_all_repositories
 from core.logging.logger import log
-from core.utils.token_counter import count_tokens_in_repo
-from tqdm import tqdm
-
-
-def format_number(number):
-    """Форматирует числа с пробелами (1000000 -> 1 000 000)"""
-    return f"{number:,}".replace(",", " ")
-
-
-def analyze_repository(project_name, repository, progress_bar):
-    """Функция анализа одного репозитория"""
-    repository_name = repository.name
-    progress_bar.set_description(f"🔍 Анализ: {repository_name}")
-    log(f"📂 Начало анализа репозитория: {repository_name}")
-
-    # Проверка изменений в репозитории (кэширование)
-    latest_commit = get_last_commit(project_name, repository_name)
-    if not is_repo_changed(project_name, repository_name, latest_commit):
-        log(f"🔄 Репозиторий {repository_name} не изменился, пропускаем.")
-        progress_bar.update(1)
-        return None
-
-    # Подсчёт токенов
-    log(f"📊 Подсчёт токенов в {repository_name}...")
-    token_data, total_tokens = count_tokens_in_repo(project_name, repository_name)
-    log(f"✅ Подсчёт токенов завершён: {format_number(total_tokens)} токенов")
-
-    # Получение коммитов
-    log(f"🔄 Получение коммитов для {repository_name}...")
-    commits = get_all_commits(project_name, repository_name)
-
-    if commits is None:
-        log(f"⚠ Ошибка при получении коммитов для {repository_name}", level="ERROR")
-        progress_bar.update(1)
-        return None
-
-    log(f"📌 Найдено {format_number(len(commits))} коммитов")
-
-    # Анализ коммитов
-    analysis = analyze_commits(commits) if commits else {"total_commits": 0, "top_authors": []}
-    log(f"📊 Анализ завершён: {analysis}")
-
-    # Генерация отчёта
-    log("📄 Генерация отчёта...")
-    report_path = generate_report(project_name, repository_name, total_tokens, commits, analysis)
-
-    if report_path:
-        log(f"✅ Отчёт сохранён: {report_path}")
-        print(f"\n✅ Репозиторий {repository_name}: Коммитов: {format_number(len(commits))}, Токенов: {format_number(total_tokens)}")
-        print(f"📄 Отчёт сохранён: {report_path}")
-        progress_bar.update(1)
-        return {"repository": repository_name, "tokens": total_tokens, "report": report_path}
-    else:
-        log("❌ Ошибка при генерации отчёта!", level="ERROR")
-        print("\n❌ Ошибка при генерации отчёта!")
-        progress_bar.update(1)
-        return None
-
+from core.utils.cache import clear_project_summary_cache, clear_cache_for_repo
 
 def main():
     log("🚀 Запуск приложения...")
+    print("🚀 Запуск приложения...", flush=True)
 
-    # Получение и выбор проекта
-    projects = get_projects()
-    log(f"📌 Доступные проекты: {projects}")
-    if not projects:
-        log("⚠ Нет доступных проектов.", level="WARNING")
+    # 1. Выбор проекта
+    project_name = select_project()
+    if not project_name:
+        log("❌ Проект не выбран. Завершение работы.", level="ERROR")
+        print("❌ Проект не выбран. Завершение работы.", flush=True)
         return
 
-    project_name = choose_from_list(projects, "Выберите проект")
-    log(f"✅ Выбран проект: {project_name}")
+    # 2. Выбор репозиториев (все или один)
+    repositories, single_repository = select_repositories(project_name)
 
-    # Получение списка репозиториев
-    repositories = get_repositories(project_name)
-    log(f"📌 Найдено {format_number(len(repositories))} репозиториев.")
-    if not repositories:
-        log(f"⚠ Нет репозиториев в проекте {project_name}.", level="WARNING")
+    if not repositories and not single_repository:
+        log("❌ Репозитории не выбраны. Завершение работы.", level="ERROR")
+        print("❌ Репозитории не выбраны. Завершение работы.", flush=True)
         return
 
-    # Выбор между анализом всех или конкретного репозитория
-    options = ["📂 Анализировать все репозитории"] + [repo.name for repo in repositories]
-    selected_option = choose_from_list(options, "Выберите действие")
+    # 3a. Если выбраны ВСЕ репозитории:
+    if repositories:
+        # Предложение очистить кэш всего проекта
+        print(f"\nОчистить кэш проекта {project_name}?")
+        print("1. Да")
+        print("2. Нет")
+        choice = input("Введите номер: ").strip()
 
-    repository_results = []
-    if selected_option == "📂 Анализировать все репозитории":
-        log(f"📊 Начат анализ всех репозиториев проекта {project_name}...")
+        if choice == "1":
+            clear_project_summary_cache(project_name)
+            log(f"🗑️ Кэш очищен для проекта {project_name}")
+            print(f"🗑️ Кэш очищен для проекта: {project_name}\n")
 
-        with tqdm(total=len(repositories), desc="⏳ Обработка репозиториев", unit="репо") as progress_bar:
-            for repository in repositories:
-                result = analyze_repository(project_name, repository, progress_bar)
-                if result:
-                    repository_results.append(result)
+        print(f"[DEBUG] Старт анализа, выбран проект: {project_name}, Кол-во репозиториев: {len(repositories)}", flush=True)
+        analyze_all_repositories(project_name, repositories)
 
-        # Генерация сводного отчёта
-        if repository_results:
-            summary_path = generate_summary(project_name, repository_results)
-            if summary_path:
-                log(f"📄 Сводный отчёт сохранён: {summary_path}")
-                print(f"\n📄 Сводный отчёт создан: {summary_path}")
-        else:
-            log(f"⚠ Не удалось создать сводный отчёт: нет обработанных репозиториев.", level="WARNING")
-
-        log(f"✅ Анализ всех репозиториев проекта {project_name} завершён!")
+    # 3b. Если выбран ОДИН репозиторий:
     else:
-        repository = next((repo for repo in repositories if repo.name == selected_option), None)
-        if not repository:
-            log(f"❌ Ошибка: репозиторий {selected_option} не найден.", level="ERROR")
-            return
+        repo_name = single_repository.name
+        # Предложение очистить кэш одного репозитория
+        print(f"\nОчистить кэш репозитория {repo_name}?")
+        print("1. Да")
+        print("2. Нет")
+        choice = input("Введите номер: ").strip()
 
-        with tqdm(total=1, desc=f"🔍 Анализ: {repository.name}", unit="репо") as progress_bar:
-            analyze_repository(project_name, repository, progress_bar)
+        if choice == "1":
+            clear_cache_for_repo(project_name, repo_name)
+            log(f"🗑️ Кэш очищен для репозитория {repo_name}")
+            print(f"🗑️ Кэш очищен для репозитория: {repo_name}\n")
+
+        print(f"[DEBUG] Старт анализа одного репозитория: {repo_name}", flush=True)
+        analyze_repository(project_name, single_repository, repo_changed=True)  
+        # ↑ Если в твоём коде не используется 3-й аргумент, удали его
+
+    # По окончании
+    print(f"🎉 Анализ завершён для {project_name}", flush=True)
+    log(f"🎉 Анализ завершён для {project_name}")
 
 
 if __name__ == "__main__":
