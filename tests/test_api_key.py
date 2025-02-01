@@ -1,5 +1,5 @@
 import os
-import openai
+from openai import OpenAI
 from dotenv import load_dotenv
 
 # Загружаем переменные окружения из файла .env
@@ -15,21 +15,23 @@ def clean_api_key(key: str) -> str:
     key = key.strip().replace("\ufeff", "")
     if (key.startswith('"') and key.endswith('"')) or (key.startswith("'") and key.endswith("'")):
         key = key[1:-1]
-    # Оставляем только ASCII-символы
-    key = "".join(c for c in key if ord(c) < 128)
-    return key
+    return "".join(c for c in key if ord(c) < 128)  # Оставляем только ASCII-символы
 
 def test_api_key():
     # Получаем API‑ключ из переменной окружения
     raw_api_key = os.getenv("OPENAI_API_KEY")
     assert raw_api_key is not None, "Переменная OPENAI_API_KEY не найдена в файле .env"
-    
+
     # Очищаем ключ от лишних символов (например, «умных» кавычек)
     api_key = clean_api_key(raw_api_key)
     assert all(ord(c) < 128 for c in api_key), "API‑ключ содержит недопустимые символы. Проверьте, что он введён без форматирования."
-    
-    openai.api_key = api_key
-    
+
+    # Создаём экземпляр клиента OpenAI
+    client = OpenAI(api_key=api_key)
+
     # Пытаемся получить список моделей
-    response = openai.Model.list()
-    assert "data" in response and len(response["data"]) > 0, "Список моделей пуст или не получен"
+    response = client.models.list()
+    model_list = [model.id for model in response.data]  # Извлекаем идентификаторы моделей
+
+    assert len(model_list) > 0, "Список моделей пуст или не получен"
+    print("✅ Доступные модели:", model_list)

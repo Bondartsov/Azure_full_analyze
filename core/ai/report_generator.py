@@ -1,3 +1,5 @@
+# core/ai/report_generator.py
+
 import os
 from datetime import datetime
 from core.ai.code_advisor import query_openai
@@ -18,7 +20,7 @@ def generate_ai_report(project_name, repository_name, folder_name, file_name, fi
     prompt = f"""
     Проанализируй следующий код:
     
-    {file_content.encode("utf-8").decode("utf-8")}
+    {file_content}
     
     1. Определи структуру кода (функции, классы, импорты).
     2. Объясни, что делает этот код.
@@ -26,7 +28,14 @@ def generate_ai_report(project_name, repository_name, folder_name, file_name, fi
     4. Насколько сложен этот код (1-10)?
     """.strip()
     
+    log(f"🔍 Отправка запроса в OpenAI для файла {file_name}")
     analysis = query_openai(prompt)
+    
+    if analysis:
+        log(f"📄 Получен анализ от OpenAI для файла {file_name}")
+    else:
+        analysis = "⚠️ Анализ не был получен от OpenAI."
+        log(f"⚠️ Анализ для файла {file_name} пуст.", level="WARNING")
     
     project_path = os.path.join(REPORTS_DIR, project_name, repository_name, folder_name)
     os.makedirs(project_path, exist_ok=True)
@@ -35,19 +44,25 @@ def generate_ai_report(project_name, repository_name, folder_name, file_name, fi
     report_filename = f"ai_report_{project_name}_{repository_name}_{folder_name}_{file_name}_{timestamp}.txt"
     report_path = os.path.join(project_path, report_filename)
     
-    with open(report_path, "w", encoding="utf-8") as f:
-        f.write(f"Проект: {project_name}\n")
-        f.write(f"Репозиторий: {repository_name}\n")
-        f.write(f"Папка: {folder_name}\n")
-        f.write(f"Файл: {file_name}\n")
-        f.write(f"Строк кода: {num_lines}\n")
-        f.write(f"Комментариев: {num_comments}\n")
-        f.write(f"Токенов: {num_tokens}\n\n")
-        f.write("📌 **Анализ кода:**\n")
-        f.write(analysis)
-    
-    print(f"DEBUG: Отчёт для файла {file_name} сохранён по пути: {report_path}", flush=True)
-    return os.path.abspath(report_path)
+    try:
+        with open(report_path, "w", encoding="utf-8") as f:
+            f.write(f"Проект: {project_name}\n")
+            f.write(f"Репозиторий: {repository_name}\n")
+            f.write(f"Папка: {folder_name}\n")
+            f.write(f"Файл: {file_name}\n")
+            f.write(f"Строк кода: {num_lines}\n")
+            f.write(f"Комментариев: {num_comments}\n")
+            f.write(f"Токенов: {num_tokens}\n\n")
+            f.write("📌 **Анализ кода:**\n")
+            f.write(analysis)
+        
+        print(f"DEBUG: Отчёт для файла {file_name} сохранён по пути: {report_path}", flush=True)
+        log(f"✅ Отчёт для файла {file_name} успешно создан: {report_path}")
+        return os.path.abspath(report_path)
+    except Exception as e:
+        log(f"❌ Ошибка при сохранении отчёта для файла {file_name}: {e}", level="ERROR")
+        return None
+
 def generate_deep_report_for_repo(project_name, repository_name, files_data):
     """
     Для глубокого анализа генерирует ИИ‑отчёты для каждого файла репозитория.
@@ -65,7 +80,8 @@ def generate_deep_report_for_repo(project_name, repository_name, files_data):
             continue
         try:
             report_path = generate_ai_report(project_name, repository_name, folder, file_name, file_content)
-            deep_report_paths.append(report_path)
+            if report_path:
+                deep_report_paths.append(report_path)
         except Exception as e:
             log(f"❌ Ошибка генерации ИИ‑отчёта для файла {file_name}: {e}", level="ERROR")
     
@@ -92,6 +108,7 @@ def generate_deep_report_for_repo(project_name, repository_name, files_data):
     except Exception as e:
         log(f"❌ Ошибка при сохранении агрегированного ИИ‑отчёта: {e}", level="ERROR")
     return os.path.abspath(aggregated_report_path)
+
 def get_deep_reports_for_repo(project_name, repository_name, files_data):
     """
     Возвращает список абсолютных путей к индивидуальным ИИ‑отчётам для каждого файла.
@@ -105,7 +122,8 @@ def get_deep_reports_for_repo(project_name, repository_name, files_data):
             continue
         try:
             report_path = generate_ai_report(project_name, repository_name, folder, file_name, file_content)
-            deep_reports.append(os.path.abspath(report_path))
+            if report_path:
+                deep_reports.append(os.path.abspath(report_path))
         except Exception as e:
             log(f"❌ Ошибка генерации ИИ‑отчёта для файла {file_name}: {e}", level="ERROR")
     return deep_reports
