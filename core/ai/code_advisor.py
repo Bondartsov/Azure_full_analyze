@@ -1,6 +1,6 @@
 # core/ai/code_advisor.py
 
-from openai import OpenAI  # Корректный импорт класса OpenAI
+from openai import OpenAI
 from openai._exceptions import (
     OpenAIError,
     APIConnectionError,
@@ -42,7 +42,8 @@ def query_openai(prompt):
             # temperature и max_tokens удалены
         )
 
-        log(f"📡 Полный ответ от OpenAI: {response.model_dump()}")  # Логирование полного ответа
+        # Логирование полного ответа для диагностики
+        log(f"📡 Полный ответ от OpenAI: {response.model_dump()}")
 
         choices = response.choices  # Доступ к списку выборок
         if not choices:
@@ -50,6 +51,10 @@ def query_openai(prompt):
             return ""
 
         message = choices[0].message  # Доступ к сообщению
+        if not hasattr(message, 'content'):
+            log("⚠️ Сообщение не содержит содержимого.", level="WARNING")
+            return ""
+
         analysis = message.content.strip()
         if not analysis:
             log("⚠️ Получен пустой анализ от OpenAI.", level="WARNING")

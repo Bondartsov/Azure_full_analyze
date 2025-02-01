@@ -4,11 +4,12 @@ from openai import OpenAI
 from openai._exceptions import OpenAIError
 import os
 from dotenv import load_dotenv
-from core.logging.logger import log
 
 load_dotenv(r"D:\Projects\Azure_full_analyze\.env")
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL")
+
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 def test_model_list():
@@ -18,8 +19,10 @@ def test_model_list():
         print("Доступные модели:")
         for model_id in model_ids:
             print(model_id)
+        assert OPENAI_MODEL in model_ids, f"Модель {OPENAI_MODEL} недоступна."
+        print(f"✅ Модель {OPENAI_MODEL} доступна.")
     except OpenAIError as e:
-        print(f"❌ Ошибка при получении списка моделей: {e}")
+        assert False, f"Ошибка при получении списка моделей: {e}"
 
 if __name__ == "__main__":
     test_model_list()

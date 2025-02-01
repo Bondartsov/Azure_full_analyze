@@ -3,7 +3,9 @@ from core.utils.common import select_project, select_repositories
 from core.analyze.repository_analysis import analyze_repository
 from core.analyze.batch_analysis import analyze_all_repositories
 from core.logging.logger import log
+from core.logging.logger import setup_logging
 from core.utils.cache import clear_project_summary_cache, clear_cache_for_repo
+from core.ai.report_generator import generate_deep_report_for_repo
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -29,6 +31,8 @@ def choose_analysis_mode() -> str:
             print("Неверный выбор, попробуйте снова.")
 
 def main():
+    # Настройка логирования
+    setup_logging()
     log("🚀 Запуск приложения...")
     print("🚀 Запуск приложения...", flush=True)
 

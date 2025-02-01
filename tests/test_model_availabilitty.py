@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv(r"D:\Projects\Azure_full_analyze\.env")
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-OPENAI_MODEL = os.getenv("OPENAI_MODEL", "o1-mini")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL")
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 

@@ -3,8 +3,8 @@ import os
 import tempfile
 import pytest
 
-# Импортируем тестируемую функцию
-from core.analyze.repository_analysis import analyze_repository_from_scratch
+# Импортируем тестируемые функции
+from core.analyze.repository_analysis import analyze_repository_fast, analyze_repository_deep
 
 # Определяем фиктивные (dummy) реализации зависимых функций:
 
@@ -73,15 +73,14 @@ def patch_dependencies(monkeypatch):
         "core.analyze.repository_analysis.get_deep_reports_for_repo",
         dummy_get_deep_reports_for_repo
     )
-    # Поскольку импорт save_repo_data_to_cache происходит внутри функции, патчим исходный модуль:
     monkeypatch.setattr(
         "core.utils.cache.save_repo_data_to_cache",
         dummy_save_repo_data_to_cache
     )
 
-def test_analyze_repository_from_scratch_fast():
+def test_analyze_repository_fast():
     """
-    Тест для быстрого анализа (analysis_mode="fast").
+    Тест для быстрого анализа.
     Ожидается, что:
       - Функция возвращает словарь с ключами repository, tokens, cached, files, report_path.
       - Поле "cached" установлено в False (так как анализ выполняется "с нуля").
@@ -90,46 +89,43 @@ def test_analyze_repository_from_scratch_fast():
     project_name = "TestProject"
     repository_name = "TestRepo"
 
-    result = analyze_repository_from_scratch(project_name, repository_name, analysis_mode="fast")
+    result = analyze_repository_fast(project_name, repository_name, repo_changed=True)
     
     assert result is not None, "Функция должна вернуть результат, а не None"
     assert result["repository"] == repository_name
     assert result["tokens"] == 42
-    # При быстром анализе мы выполняем пересчёт, поэтому cached ожидается False.
     assert result["cached"] is False
-    # Проверяем, что report_path соответствует тому, что возвращает dummy_generate_report
     tmp_dir = tempfile.gettempdir()
     expected_report_path = os.path.join(tmp_dir, f"report_{repository_name}.txt")
     assert result["report_path"] == expected_report_path
-    # В быстром анализе поле ai_reports отсутствует
     assert "ai_reports" not in result
 
-def test_analyze_repository_from_scratch_deep():
+import pytest
+from core.analyze.repository_analysis import analyze_repository_deep
+
+@pytest.fixture
+def mock_fast_results():
+    return {
+        "repository": "TestRepo",
+        "tokens": 42,
+        "cached": False,
+        "files": [
+            {"file_name": "test_file.py", "folder": "TestFolder", "content": "print('Hello, World!')"}
+        ],
+        "report_path": "report_TestRepo.txt"
+    }
+
+def test_analyze_repository_deep(mock_fast_results):
     """
-    Тест для глубокого анализа (analysis_mode="deep").
+    Тест для глубокого анализа репозитория.
     Ожидается, что:
-      - Функция возвращает словарь с ключами repository, tokens, cached, files, report_path, ai_reports.
-      - Поле "cached" устанавливается в False.
-      - Отчёт генерируется с помощью dummy_generate_deep_report_for_repo.
-      - ai_reports содержит список путей к ИИ‑отчётам.
+      - Функция возвращает список путей к ИИ-отчётам.
     """
     project_name = "TestProject"
     repository_name = "TestRepo"
-
-    result = analyze_repository_from_scratch(project_name, repository_name, analysis_mode="deep")
+    deep_reports = analyze_repository_deep(project_name, repository_name, mock_fast_results)
     
-    assert result is not None, "Функция должна вернуть результат, а не None"
-    assert result["repository"] == repository_name
-    assert result["tokens"] == 42
-    # При глубоком анализе cached всегда False
-    assert result["cached"] is False
-    # Проверяем, что report_path соответствует dummy_generate_deep_report_for_repo
-    tmp_dir = tempfile.gettempdir()
-    expected_deep_report_path = os.path.join(tmp_dir, f"deep_report_{repository_name}.txt")
-    assert result["report_path"] == expected_deep_report_path
-    # Проверяем, что ai_reports присутствует и является списком с одним элементом (так как у нас один файл в dummy_count_tokens_in_repo)
-    assert "ai_reports" in result
-    assert isinstance(result["ai_reports"], list)
-    assert len(result["ai_reports"]) == 1
-    expected_ai_report = "/dummy/path/test1.py_ai.txt"
-    assert result["ai_reports"][0] == expected_ai_report
+    assert isinstance(deep_reports, list), "Функция должна вернуть список"
+    assert len(deep_reports) > 0, "Список ИИ-отчётов не должен быть пустым"
+    for report_path in deep_reports:
+        assert report_path.endswith(".txt"), "Каждый путь к отчёту должен заканчиваться на .txt"

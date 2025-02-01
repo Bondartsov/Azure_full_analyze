@@ -11,6 +11,7 @@ load_dotenv()
 # Получение белого списка из переменной окружения
 WHITE_EXTENSIONS = set(os.getenv("WHITE_EXTENSIONS", "").split(","))
 
+
 def count_tokens_in_repo(project_name, repository_name):
     """
     Считает токены, строки кода и комментарии в файлах (у которых расширения в WHITE_EXTENSIONS).
@@ -54,9 +55,49 @@ def count_tokens_in_repo(project_name, repository_name):
 
     return files_data, total_tokens
 
-def count_tokens_in_text(text, model_encoding="cl100k_base"):
-    encoding = tiktoken.get_encoding(model_encoding)
-    return len(encoding.encode(text))
+
+def count_tokens_in_text(text, model="o3-mini"):
+    """
+    Подсчитывает количество токенов в тексте с использованием tiktoken.
+    Для моделей, не поддерживаемых автоматически, используется явная кодировка.
+    """
+    try:
+        # Пытаемся получить кодировку автоматически
+        encoding = tiktoken.encoding_for_model(model)
+    except KeyError:
+        # Если модель не распознана, используем явную кодировку
+        log(f"❗ Модель '{model}' не распознана. Используется кодировка 'cl100k_base'.")
+        encoding = tiktoken.get_encoding("cl100k_base")
+
+    tokens = encoding.encode(text)
+    return len(tokens)
+
+
+def split_text(text, max_tokens=3000, model="o3-mini"):
+    """
+    Разделяет текст на части, каждая из которых не превышает max_tokens.
+    """
+    try:
+        encoding = tiktoken.encoding_for_model(model)
+    except KeyError:
+        log(f"❗ Модель '{model}' не распознана. Используется кодировка 'cl100k_base'.")
+        encoding = tiktoken.get_encoding("cl100k_base")
+
+    tokens = encoding.encode(text)
+    parts = []
+    current_tokens = []
+
+    for token in tokens:
+        current_tokens.append(token)
+        if len(current_tokens) >= max_tokens:
+            parts.append(encoding.decode(current_tokens))
+            current_tokens = []
+
+    if current_tokens:
+        parts.append(encoding.decode(current_tokens))
+
+    return parts
+
 
 def count_comments_naive(content, ext):
     """
@@ -69,7 +110,7 @@ def count_comments_naive(content, ext):
     lines = content.split('\n')
     comment_lines = 0
     in_block_comment = False  # для /* ... */
-    
+
     for line in lines:
         stripped = line.strip()
 
@@ -101,3 +142,4 @@ def count_comments_naive(content, ext):
             continue
 
     return comment_lines
+

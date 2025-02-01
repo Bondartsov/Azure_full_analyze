@@ -26,14 +26,15 @@ def analyze_all_repositories(project_name, repositories, analysis_mode="fast"):
 
         if analysis_mode == "fast":
             if not repo_changed:
-                print(f"{repository_name} взят из кэша")
+                print(f"📁 {repository_name} взят из кэша")
             else:
                 print(f"🔍 Идёт анализ {repository_name}...")
         else:
-            # При глубоком анализе всегда выполняем полный анализ
             print(f"🔍 Идёт глубокий анализ {repository_name}...")
 
+        # Анализируем репозиторий
         result = analyze_repository(project_name, repository, repo_changed, analysis_mode)
+        
         if result:
             tokens_str = f"{result['tokens']:,}".replace(",", " ")
             print(f"💠 Анализ {repository_name} завершён, количество токенов: {tokens_str}")
