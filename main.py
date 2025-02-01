@@ -4,6 +4,10 @@ from core.analyze.repository_analysis import analyze_repository
 from core.analyze.batch_analysis import analyze_all_repositories
 from core.logging.logger import log
 from core.utils.cache import clear_project_summary_cache, clear_cache_for_repo
+from dotenv import load_dotenv
+load_dotenv()
+
+# Теперь переменные из .env доступны через os.getenv()
 
 def choose_analysis_mode() -> str:
     """
