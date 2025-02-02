@@ -1,16 +1,49 @@
-import tiktoken
-from tqdm import tqdm
 import os
-from core.azure.repos import get_repo_files, get_file_content
-from core.logging.logger import log
+from tqdm import tqdm
+from core.azure.repos import get_repo_files  # Removed get_file_content import
 from dotenv import load_dotenv  # Для загрузки переменных из .env
+import tiktoken
+from core.logging.logger import log  # Убедитесь, что логгер импортирован
+from core.azure.connection import connect_to_azure  # Предполагаемый импорт для подключения к Azure
 
 # Загрузка переменных окружения из .env
 load_dotenv()
 
 # Получение белого списка из переменной окружения
-WHITE_EXTENSIONS = set(os.getenv("WHITE_EXTENSIONS", "").split(","))
+WHITE_EXTENSIONS = set(ext.strip().lower() for ext in os.getenv("WHITE_EXTENSIONS", "").split(",") if ext.strip())
+if not WHITE_EXTENSIONS:
+    log("⚠ Переменная WHITE_EXTENSIONS пуста! Будут анализироваться все файлы.", level="WARNING")
+    print("⚠ Переменная WHITE_EXTENSIONS пуста! Будут анализироваться все файлы.")
+else:
+    log(f"📂 Белый список расширений: {WHITE_EXTENSIONS}")
+    print(f"📂 Белый список расширений: {WHITE_EXTENSIONS}")
 
+def get_file_content(project_name, repository_name, file_path):
+    """
+    Загружает содержимое файла по его пути через API Azure DevOps.
+    """
+    try:
+        connection = connect_to_azure()
+        git_client = connection.clients.get_git_client()
+
+        log(f"📄 Загрузка файла {file_path} из репозитория {repository_name}...")
+        content_generator = git_client.get_item_content(repository_name, path=file_path, project=project_name)
+
+        # Корректно извлекаем данные из генератора
+        file_content = b"".join(content_generator).decode("utf-8", errors="ignore")
+
+        if file_content:
+            log(f"✅ Файл {file_path} успешно загружен ({len(file_content)} символов)")
+            print(f"✅ Файл {file_path} успешно загружен ({len(file_content)} символов)")
+        else:
+            log(f"⚠ Файл {file_path} пуст или не удалось загрузить", level="WARNING")
+            print(f"⚠ Файл {file_path} пуст или не удалось загрузить")
+
+        return file_content if file_content else ""
+    except Exception as e:
+        log(f"❌ Ошибка при загрузке файла {file_path}: {e}", level="ERROR")
+        print(f"❌ Ошибка при загрузке файла {file_path}: {e}")
+        return ""
 
 def count_tokens_in_repo(project_name, repository_name):
     """
@@ -30,11 +63,17 @@ def count_tokens_in_repo(project_name, repository_name):
     for file_path in tqdm(files, desc="Обработка файлов"):
         _, ext = os.path.splitext(file_path.lower())
         if ext not in WHITE_EXTENSIONS:
+            log(f"🔍 Файл {file_path} пропущен: расширение {ext} не в белом списке.")
             continue
-
+        
         content = get_file_content(project_name, repository_name, file_path)
+
         if not content.strip():
+            log(f"🔍 Файл {file_path} пропущен: пустое содержимое.")
             continue
+        
+        log(f"📝 Содержимое файла {file_path}: {len(content)} символов")
+        print(f"📝 Содержимое файла {file_path}: {len(content)} символов")
 
         # Подсчитываем токены
         tokens_count = count_tokens_in_text(content)
@@ -53,52 +92,73 @@ def count_tokens_in_repo(project_name, repository_name):
         })
         total_tokens += tokens_count
 
+        log(f"📄 Файл {file_path} обработан: токенов - {tokens_count}, строк - {lines_count}, комментариев - {comments_count}")
+        print(f"📄 Файл {file_path} обработан: токенов - {tokens_count}, строк - {lines_count}, комментариев - {comments_count}")
+
+    log(f"📈 Общее количество токенов в репозитории {repository_name}: {total_tokens}")
     return files_data, total_tokens
 
+def read_file_content(file_path):
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read()
+            log(f"📂 Файл {file_path} успешно прочитан, {len(content)} символов.")
+            return content
+    except Exception as e:
+        log(f"❌ Ошибка при чтении файла {file_path}: {e}", level="ERROR")
+        return ""
 
-def count_tokens_in_text(text, model="o3-mini"):
+def count_tokens_in_text(text, model="cl100k_base"):
     """
     Подсчитывает количество токенов в тексте с использованием tiktoken.
-    Для моделей, не поддерживаемых автоматически, используется явная кодировка.
+    Всегда использует явную кодировку 'cl100k_base'.
     """
     try:
-        # Пытаемся получить кодировку автоматически
-        encoding = tiktoken.encoding_for_model(model)
-    except KeyError:
-        # Если модель не распознана, используем явную кодировку
-        log(f"❗ Модель '{model}' не распознана. Используется кодировка 'cl100k_base'.")
+        # Используем явную кодировку 'cl100k_base'
         encoding = tiktoken.get_encoding("cl100k_base")
+    except Exception as e:
+        log(f"❌ Ошибка при получении кодировки 'cl100k_base': {e}", level="ERROR")
+        raise e
 
     tokens = encoding.encode(text)
-    return len(tokens)
+    token_count = len(tokens)
+    log(f"🪄 Подсчитано {token_count} токенов.")
+    print(f"🪄 Подсчитано {token_count} токенов.")
+    return token_count
 
-
-def split_text(text, max_tokens=3000, model="o3-mini"):
+def split_text(text, max_tokens=3000):
     """
     Разделяет текст на части, каждая из которых не превышает max_tokens.
+    Всегда использует явную кодировку 'cl100k_base'.
     """
     try:
-        encoding = tiktoken.encoding_for_model(model)
-    except KeyError:
-        log(f"❗ Модель '{model}' не распознана. Используется кодировка 'cl100k_base'.")
         encoding = tiktoken.get_encoding("cl100k_base")
-
+    except Exception as e:
+        log(f"❌ Ошибка при получении кодировки 'cl100k_base': {e}", level="ERROR")
+        raise e
+    
     tokens = encoding.encode(text)
     parts = []
     current_tokens = []
-
+    
     for token in tokens:
         current_tokens.append(token)
         if len(current_tokens) >= max_tokens:
-            parts.append(encoding.decode(current_tokens))
+            decoded_part = encoding.decode(current_tokens)
+            parts.append(decoded_part)
+            log(f"📚 Разделено на {len(decoded_part)} символов.")
+            print(f"📚 Разделено на {len(decoded_part)} символов.")
             current_tokens = []
-
+    
     if current_tokens:
-        parts.append(encoding.decode(current_tokens))
-
+        decoded_part = encoding.decode(current_tokens)
+        parts.append(decoded_part)
+        log(f"📚 Разделено на {len(decoded_part)} символов.")
+        print(f"📚 Разделено на {len(decoded_part)} символов.")
+    
+    log(f"📑 Общее количество частей после разбиения: {len(parts)}")
+    print(f"📑 Общее количество частей после разбиения: {len(parts)}")
     return parts
-
-
 def count_comments_naive(content, ext):
     """
     Наивно считает комментарии для ряда языков:
@@ -106,40 +166,40 @@ def count_comments_naive(content, ext):
     - Python: строки, начинающиеся с #
     и т.д.
     """
-    # Разбиваем на строки
     lines = content.split('\n')
     comment_lines = 0
-    in_block_comment = False  # для /* ... */
-
+    in_block_comment = False
+    
     for line in lines:
         stripped = line.strip()
-
+        
         # Проверяем Python-style #
-        # Например, если ext == '.py', то можно считать # как комментарий
         if ext == '.py':
             if stripped.startswith('#'):
                 comment_lines += 1
                 continue
-
+        
         # C++/Java/C#/JS single line //
-        if stripped.startswith('//'):
+        if stripped.startswith('//') and ext in ['.cpp', '.c', '.cs', '.java', '.js', '.ts', '.jsx', '.tsx']:
             comment_lines += 1
             continue
-
-        # Блоковые /* ... */
-        if '/*' in stripped:
+        
+        # Начало блокового комментария /* */
+        if '/*' in stripped and ext in ['.cpp', '.c', '.cs', '.java', '.js', '.ts', '.jsx', '.tsx']:
             in_block_comment = True
-            comment_lines += 1  # считаем, что вся строка - комментарий
+            comment_lines += 1
+            # Если блоковый комментарий закрывается в той же строке
             if '*/' in stripped and stripped.index('/*') < stripped.index('*/'):
-                # Если в одной строке открывается и закрывается
                 in_block_comment = False
             continue
+        
+        # Внутри блокового комментария
         if in_block_comment:
             comment_lines += 1
-            # проверяем, не закрывается ли
             if '*/' in stripped:
                 in_block_comment = False
             continue
-
+    
+    log(f"📝 Найдено {comment_lines} строк комментариев для расширения {ext}.")
+    print(f"📝 Найдено {comment_lines} строк комментариев для расширения {ext}.")
     return comment_lines
-

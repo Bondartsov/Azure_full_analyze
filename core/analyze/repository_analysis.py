@@ -120,40 +120,46 @@ def generate_deep_report_for_repo(project_name, repository_name, files_data):
 
     return aggregated_report_path
 
+# repository_analysis.py
+
 def get_deep_reports_for_repo(project_name, repository_name, files_data):
     """
     Возвращает список абсолютных путей к индивидуальным ИИ-отчётам для каждого файла.
     """
-    log(f"📂 Начинаем глубокий анализ файлов в {repository_name}")
+    log(f"🔍 Запуск функции get_deep_reports_for_repo для репозитория: {repository_name}")
+    print(f"🔍 Запуск функции get_deep_reports_for_repo для репозитория: {repository_name}")
+
     deep_reports = []
-    
     for file_info in files_data:
         file_name = file_info.get("file_name") or file_info.get("path")
         folder = file_info.get("folder", "root")
         file_content = file_info.get("content")
-        print(f"DEBUG: Файлы для глубокого анализа: {len(files_data)} шт.")
-        log(f"🧠 Количество файлов для глубокого анализа: {len(files_data)}")
+
+        log(f"📂 Обработка файла: {file_name}")
+        print(f"📂 Обработка файла: {file_name}")
+
         if not file_content:
             log(f"⚠️ Пропущен пустой файл: {file_name}")
+            print(f"⚠️ Пропущен пустой файл: {file_name}")
             continue
+
+        # Добавляем логирование содержимого файла для отладки
+        log(f"📝 Содержимое файла {file_name}: {len(file_content)} символов")
+        print(f"📝 Содержимое файла {file_name}: {len(file_content)} символов")
+
         try:
-            log(f"🚀 Вызов generate_ai_report для {file_name} в папке {folder}")
             report_path = generate_ai_report(project_name, repository_name, folder, file_name, file_content)
-            
             if report_path:
                 deep_reports.append(os.path.abspath(report_path))
-                log(f"✅ Отчёт создан: {report_path}")
-       
-                print(f"DEBUG: Анализируем файл {file_name} в {folder}")
-                log(f"📝 Запуск анализа для {file_name} из {folder}")
-            
+                log(f"✅ Отчёт для файла {file_name} успешно создан: {report_path}")
+                print(f"✅ Отчёт для файла {file_name} успешно создан: {report_path}")
             else:
-                log(f"❌ Отчёт для {file_name} не был создан!", level="ERROR")
-            
-            print(f"DEBUG: Анализируем файл {file_name} в {folder}")
-            log(f"📝 Запуск анализа для {file_name} из {folder}")
+                log(f"❌ Не удалось создать отчёт для файла {file_name}!", level="ERROR")
+                print(f"❌ Не удалось создать отчёт для файла {file_name}!")
         except Exception as e:
-            log(f"❌ Ошибка генерации ИИ-отчёта для {file_name}: {e}", level="ERROR")
-    log(f"🔍 Завершён анализ {repository_name}, найдено {len(deep_reports)} отчётов.")
-    print(f"DEBUG: Созданные ИИ-отчёты: {deep_reports}")
+            log(f"❌ Ошибка генерации ИИ‑отчёта для файла {file_name}: {e}", level="ERROR")
+            print(f"❌ Ошибка генерации ИИ‑отчёта для файла {file_name}: {e}")
+
+    log(f"📝 Завершение функции get_deep_reports_for_repo, создано {len(deep_reports)} отчётов.")
+    print(f"📝 Завершение функции get_deep_reports_for_repo, создано {len(deep_reports)} отчётов.")
     return deep_reports

@@ -1,9 +1,15 @@
+# core/logging/logger.py
+
 import logging
 import os
 import sqlite3
+from dotenv import load_dotenv
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "../../logs.db")
+# Загрузка переменных окружения из .env
+load_dotenv()
 
+# Получение пути к базе данных логов из .env или использование дефолтного пути
+DB_PATH = os.getenv("LOG_DB_PATH", os.path.join(os.path.dirname(__file__), "../../logs.db"))
 
 class SQLiteHandler(logging.Handler):
     """
@@ -59,7 +65,6 @@ class SQLiteHandler(logging.Handler):
             print(f"❌ Ошибка при записи лога в SQLite: {e}")
             self.handleError(record)  # Логируем ошибку обработки
 
-
 def setup_logging(level=logging.INFO):
     """
     Настройка логирования в SQLite и консоль.
@@ -76,25 +81,27 @@ def setup_logging(level=logging.INFO):
         "%(asctime)s - %(levelname)s - %(message)s", "%Y-%m-%d %H:%M:%S"
     )
 
-    # ✅ Лог в SQLite
+    # Лог в SQLite
     sqlite_handler = SQLiteHandler(DB_PATH)
     sqlite_handler.setFormatter(formatter)
     logger.addHandler(sqlite_handler)
 
-    # ✅ Лог в консоль
+    # Лог в консоль
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
 
-    # ✅ Лог в файл logs/app.log (ротация)
+    # Удалите или закомментируйте FileHandler, если не хотите логировать в файл
+    '''
+    # Лог в файл logs/app.log (ротация)
     logs_dir = os.path.join(os.path.dirname(__file__), "../../logs")
     os.makedirs(logs_dir, exist_ok=True)  # Создаём папку для логов, если нет
     file_handler = logging.FileHandler(os.path.join(logs_dir, "app.log"), encoding="utf-8")
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
+    '''
 
-    logging.info("✅ Логирование инициализировано (SQLite + консоль + файл).")
-
+    logging.info("✅ Логирование инициализировано (SQLite + консоль).")
 
 def log(message, level=logging.INFO):
     """
@@ -109,7 +116,6 @@ def log(message, level=logging.INFO):
     else:
         logging.info(message)
 
-
 # ✅ Инициализация логов при импортировании модуля
 setup_logging()
 
@@ -117,7 +123,6 @@ setup_logging()
 class CustomFilter(logging.Filter):
     def filter(self, record):
         return "Negotiated api version" not in record.getMessage()
-
 
 logger = logging.getLogger()
 for handler in logger.handlers:
