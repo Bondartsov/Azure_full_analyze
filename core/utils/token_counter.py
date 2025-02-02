@@ -1,10 +1,15 @@
+# core/utils/token_counter.py
+# анализирует файлы
+
 import os
 from tqdm import tqdm
-from core.azure.repos import get_repo_files  # Removed get_file_content import
+from core.azure.repos import get_repo_files
 from dotenv import load_dotenv  # Для загрузки переменных из .env
 import tiktoken
 from core.logging.logger import log  # Убедитесь, что логгер импортирован
+from core.utils.database import add_file_record  # Импортируем функцию из database.py
 from core.azure.connection import connect_to_azure  # Предполагаемый импорт для подключения к Azure
+import hashlib  # Для вычисления хеша
 
 # Загрузка переменных окружения из .env
 load_dotenv()
@@ -65,13 +70,13 @@ def count_tokens_in_repo(project_name, repository_name):
         if ext not in WHITE_EXTENSIONS:
             log(f"🔍 Файл {file_path} пропущен: расширение {ext} не в белом списке.")
             continue
-        
+
         content = get_file_content(project_name, repository_name, file_path)
 
         if not content.strip():
             log(f"🔍 Файл {file_path} пропущен: пустое содержимое.")
             continue
-        
+
         log(f"📝 Содержимое файла {file_path}: {len(content)} символов")
         print(f"📝 Содержимое файла {file_path}: {len(content)} символов")
 
@@ -84,6 +89,30 @@ def count_tokens_in_repo(project_name, repository_name):
         # Подсчитываем комментарии (наивная реализация)
         comments_count = count_comments_naive(content, ext)
 
+        # Вычисляем хеш-сумму содержимого файла
+        hash_value = hashlib.sha256(content.encode('utf-8')).hexdigest()
+
+        # Добавляем запись в базу данных
+        success = add_file_record(
+            project_name=project_name,
+            repository_name=repository_name,
+            folder_name=os.path.dirname(file_path),
+            file_name=os.path.basename(file_path),
+            file_path=file_path,
+            content=content,
+            lines=lines_count,
+            comments=comments_count,
+            tokens=tokens_count,
+            hash_value=hash_value,
+            processed=False  # Флаг обработки устанавливается как False
+        )
+
+        if success:
+            log(f"✅ Файл {file_path} успешно добавлен/обновлён в базе данных.")
+        else:
+            log(f"❌ Не удалось добавить/обновить файл {file_path} в базе данных.", level="ERROR")
+
+        # Добавляем данные в files_data для дальнейшего анализа (если нужно)
         files_data.append({
             "path": file_path,
             "tokens": tokens_count,
@@ -91,9 +120,6 @@ def count_tokens_in_repo(project_name, repository_name):
             "comments": comments_count,
         })
         total_tokens += tokens_count
-
-        log(f"📄 Файл {file_path} обработан: токенов - {tokens_count}, строк - {lines_count}, комментариев - {comments_count}")
-        print(f"📄 Файл {file_path} обработан: токенов - {tokens_count}, строк - {lines_count}, комментариев - {comments_count}")
 
     log(f"📈 Общее количество токенов в репозитории {repository_name}: {total_tokens}")
     return files_data, total_tokens
@@ -128,7 +154,7 @@ def count_tokens_in_text(text, model="cl100k_base"):
 
 def split_text(text, max_tokens=3000):
     """
-    Разделяет текст на части, каждая из которых не превышает max_tokens.
+    Разделяет текст на части, каждая из которой не превышает max_tokens.
     Всегда использует явную кодировку 'cl100k_base'.
     """
     try:
@@ -136,11 +162,11 @@ def split_text(text, max_tokens=3000):
     except Exception as e:
         log(f"❌ Ошибка при получении кодировки 'cl100k_base': {e}", level="ERROR")
         raise e
-    
+
     tokens = encoding.encode(text)
     parts = []
     current_tokens = []
-    
+
     for token in tokens:
         current_tokens.append(token)
         if len(current_tokens) >= max_tokens:
@@ -149,16 +175,17 @@ def split_text(text, max_tokens=3000):
             log(f"📚 Разделено на {len(decoded_part)} символов.")
             print(f"📚 Разделено на {len(decoded_part)} символов.")
             current_tokens = []
-    
+
     if current_tokens:
         decoded_part = encoding.decode(current_tokens)
         parts.append(decoded_part)
         log(f"📚 Разделено на {len(decoded_part)} символов.")
         print(f"📚 Разделено на {len(decoded_part)} символов.")
-    
+
     log(f"📑 Общее количество частей после разбиения: {len(parts)}")
     print(f"📑 Общее количество частей после разбиения: {len(parts)}")
     return parts
+
 def count_comments_naive(content, ext):
     """
     Наивно считает комментарии для ряда языков:
@@ -169,21 +196,21 @@ def count_comments_naive(content, ext):
     lines = content.split('\n')
     comment_lines = 0
     in_block_comment = False
-    
+
     for line in lines:
         stripped = line.strip()
-        
+
         # Проверяем Python-style #
         if ext == '.py':
             if stripped.startswith('#'):
                 comment_lines += 1
                 continue
-        
+
         # C++/Java/C#/JS single line //
         if stripped.startswith('//') and ext in ['.cpp', '.c', '.cs', '.java', '.js', '.ts', '.jsx', '.tsx']:
             comment_lines += 1
             continue
-        
+
         # Начало блокового комментария /* */
         if '/*' in stripped and ext in ['.cpp', '.c', '.cs', '.java', '.js', '.ts', '.jsx', '.tsx']:
             in_block_comment = True
@@ -192,14 +219,14 @@ def count_comments_naive(content, ext):
             if '*/' in stripped and stripped.index('/*') < stripped.index('*/'):
                 in_block_comment = False
             continue
-        
+
         # Внутри блокового комментария
         if in_block_comment:
             comment_lines += 1
             if '*/' in stripped:
                 in_block_comment = False
             continue
-    
+
     log(f"📝 Найдено {comment_lines} строк комментариев для расширения {ext}.")
     print(f"📝 Найдено {comment_lines} строк комментариев для расширения {ext}.")
     return comment_lines

@@ -7,6 +7,8 @@ from core.logging.logger import setup_logging
 from core.utils.cache import clear_project_summary_cache, clear_cache_for_repo
 from core.ai.report_generator import generate_deep_report_for_repo
 from dotenv import load_dotenv
+from core.utils.database import create_table
+
 load_dotenv()
 
 # Теперь переменные из .env доступны через os.getenv()
@@ -35,6 +37,9 @@ def main():
     setup_logging()
     log("🚀 Запуск приложения...")
     print("🚀 Запуск приложения...", flush=True)
+
+    # Создание таблицы (если ещё не создана)
+    create_table()
 
     # 1. Выбор проекта
     project_name = select_project()
